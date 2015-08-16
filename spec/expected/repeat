@@ -1,0 +1,27 @@
+<ul>
+    <li class="odd first">Item - 0</li>
+    <li class="even">Item - 1</li>
+    <li class="odd">Item - 2</li>
+    <li class="even last">Item - 3</li>
+</ul>
+
+<ul>
+    <li class="odd first">Item - 1 of 4</li>
+    <li class="even">Item - 2 of 4</li>
+    <li class="odd">Item - 3 of 4</li>
+    <li class="even last">Item - 4 of 4</li>
+</ul>
+
+<ul>
+    <li class="odd">Item</li>
+    <li class="even">Item</li>
+    <li class="odd">Item</li>
+    <li class="even">Item</li>
+</ul>
+
+<ul>
+    <li class="first">Item</li>
+    <li class="">Item</li>
+    <li class="">Item</li>
+    <li class="last">Item</li>
+</ul>

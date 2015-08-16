@@ -1,0 +1,23 @@
+<ul>
+    {{#repeat 4}}
+    <li class="{{class}}">Item - {{@index}}</li>
+    {{/repeat}}
+</ul>
+
+<ul>
+    {{#repeat 4}}
+    <li class="{{class}}">Item - {{count}} of {{of}}</li>
+    {{/repeat}}
+</ul>
+
+<ul>
+    {{#repeat 4}}
+    <li class="{{#if @odd}}odd{{else}}even{{/if}}">Item</li>
+    {{/repeat}}
+</ul>
+
+<ul>
+    {{#repeat 4}}
+    <li class="{{#if @first}}first{{/if}}{{#if @last}}last{{/if}}">Item</li>
+    {{/repeat}}
+</ul>

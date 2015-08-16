@@ -1,0 +1,11 @@
+src/mustacher.js:
+  render:
+    - throw if no argument
+    - should return a string
+    - should return helloworld
+  hasOptions:
+    - returns false if no arguments
+    - returns arguments is empty
+    - returns false is not a plainobject
+    - returns options property 'name' is not defined
+    - expect to returns array of arguments

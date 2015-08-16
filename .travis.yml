@@ -1,0 +1,10 @@
+language: node_js
+node_js:
+  - "0.12.7"
+before_install:
+  - npm install -g grunt-cli istanbul jasmine-node coveralls
+script:
+  - npm test --verbose
+after_success:
+  - cat ./coverage/lcov.info | coveralls && rm -rf ./coverage
+

@@ -1,0 +1,25 @@
+<ul>
+    {{#repeat 2}}
+    <li class="{{class}}">
+        <b>Item - {{@index}}</b>
+        <ul>
+            {{#repeat 4}}
+            <li class="{{class}}">Subitem - {{@index}}</li>
+            {{/repeat}}
+        </ul>
+    </li>
+    {{/repeat}}
+</ul>
+
+<ul>
+    {{#repeat 2}}
+    <li class="{{class}}">
+        <b>Item - {{count}} of {{of}}</b>
+        <ul>
+            {{#repeat 4}}
+            <li class="{{class}}">Subitem - {{@../index}}.{{@index}}</li>
+            {{/repeat}}
+        </ul>
+    </li>
+    {{/repeat}}
+</ul>
