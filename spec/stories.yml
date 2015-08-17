@@ -10,12 +10,23 @@ src/mustacher.js:
     - returns options property 'name' is not defined
     - expect to returns array of arguments
 src/helpers/conditions.js:
+  register:
+    - handlebars registerHelper called twice
+  render:
+    - throws missing arguments
+    - not throws missing arguments
+    - handlebars createFrame called
+  or:
+    - return true
+    - return false
+  and:
+    - return true
+    - return false
 src/helpers/equal.js:
 src/helpers/image.js:
 src/helpers/include.js:
 src/helpers/literal.js:
 src/helpers/livereload.js:
-src/helpers/lorem.js:
 src/helpers/random.js:
 src/helpers/repeat.js:
 src/helpers/timestamp.js:

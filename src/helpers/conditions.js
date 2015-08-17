@@ -31,7 +31,7 @@
         var result, data,
             args = mustacher.hasOptions(arguments);
         if (!args || args.length < 3) {
-            throw new Error('Conditions helper parameters is missing');
+            throw new Error('missing arguments');
         }
         options = args[args.length - 1];
         data = Handlebars.createFrame(options.data || {});
