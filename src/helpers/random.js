@@ -15,9 +15,11 @@
     'use strict';
 
     var RandomHelper,
-        lodash = require('lodash'),
-        Utils = require('./../mustacher-utils'),
-        Handlebars = require('handlebars');
+        Handlebars = require('handlebars'),
+        random = require('lodash.random'),
+        isnumber = require('lodash.isnumber'),
+        mustacher = require('./../mustacher'),
+        isboolean = require('lodash.isboolean');
 
     RandomHelper = function () {};
 
@@ -30,36 +32,36 @@
      * @see htt://placehold.it
      */
     RandomHelper.prototype.render = function (min, max, round, options) { // jshint ignore:line
-        var args = Utils.hasOptions(arguments);
+        var args = mustacher.hasOptions(arguments);
         if (!args) {
             throw new Error('RandomHelper arguments is missing');
         }
 
         if (args.length < 2) {
-            return lodash.random(0, 1, false);
+            return random(0, 1, false);
         }
 
         if (args.length < 3) {
-            if (lodash.isNumber(min)) {
-                return lodash.random(0, min, false);
-            } else if (lodash.isBoolean(min)) {
-                return lodash.random(0, 1, min);
+            if (isnumber(min)) {
+                return random(0, min, false);
+            } else if (isboolean(min)) {
+                return random(0, 1, min);
             } else {
                 throw new Error('Random helper unknow arguments');
             }
         }
 
         if (args.length < 4) {
-            if (lodash.isNumber(max)) {
-                return lodash.random(min, max, false);
-            } else if (lodash.isBoolean(max)) {
-                return lodash.random(0, min, max);
+            if (isnumber(max)) {
+                return random(min, max, false);
+            } else if (isboolean(max)) {
+                return random(0, min, max);
             } else {
                 throw new Error('Random helper unknow arguments');
             }
         }
 
-        return lodash.random(min, max, round);
+        return random(min, max, round);
     };
 
     module.exports = RandomHelper;

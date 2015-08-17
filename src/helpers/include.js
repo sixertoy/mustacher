@@ -13,21 +13,21 @@
 /*global module, require */
 (function () {
     'use strict';
-    var Helper,
+    var IncludeHelper,
         LF = '\n',
         path = require('path'),
         Handlebars = require('handlebars'),
         mustacher = require('./../mustacher'),
         isstring = require('lodash.isstring');
 
-    Helper = function () {};
+    IncludeHelper = function () {};
 
 
-    Helper.prototype.register = function () {
+    IncludeHelper.prototype.register = function () {
         Handlebars.registerHelper('$include', this.render.bind(this));
     };
 
-    Helper.prototype.render = function (filepath, options) {
+    IncludeHelper.prototype.render = function (filepath, options) {
 
         var data, root, content, // .hbs content
             absolute, // absolute .hbs path form system root
@@ -65,6 +65,6 @@
 
     };
 
-    module.exports = Helper;
+    module.exports = IncludeHelper;
 
 }());

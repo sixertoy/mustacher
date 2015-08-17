@@ -16,9 +16,9 @@
     'use strict';
 
     var ConditionsHelper,
-        lodash = require('lodash'),
-        Utils = require('./../mustacher-utils'),
-        Handlebars = require('handlebars');
+        Handlebars = require('handlebars'),
+        compact = require('lodash.compact'),
+        mustacher = require('./../mustacher');
 
     ConditionsHelper = function () {};
 
@@ -29,7 +29,7 @@
 
     ConditionsHelper.prototype.render = function (options) {
         var result, data,
-            args = Utils.hasOptions(arguments);
+            args = mustacher.hasOptions(arguments);
         if (!args || args.length < 3) {
             throw new Error('Conditions helper parameters is missing');
         }
@@ -37,7 +37,7 @@
         data = Handlebars.createFrame(options.data || {});
         args = args.slice(0, args.length - 1);
         result = options.name === 'or' ? 1 : args.length;
-        if (lodash.compact(args).length >= result) {
+        if (compact(args).length >= result) {
             return options.fn(args, {
                 data: data
             });

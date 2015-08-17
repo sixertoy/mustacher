@@ -16,9 +16,9 @@
     'use strict';
 
     var LivereloadHelper,
-        lodash = require('lodash'),
-        Utils = require('./../mustacher-utils'),
-        Handlebars = require('handlebars');
+        Handlebars = require('handlebars'),
+        mustacher = require('./../mustacher'),
+        isplainobject = require('lodash.isplainobject');
 
     LivereloadHelper = function () {};
 
@@ -27,12 +27,12 @@
     };
 
     LivereloadHelper.prototype.render = function (port, options) {
-        var result, args = Utils.hasOptions(arguments);
+        var result, args = mustacher.hasOptions(arguments);
         if (!args || args.length < 1) {
             throw new Error('Livereload Helper arguments is missing');
         }
 
-        if (lodash.isObject(port) && args.length < 2) {
+        if (isplainobject(port) && args.length < 2) {
             options = port;
             port = 1337;
         }

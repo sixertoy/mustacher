@@ -16,9 +16,9 @@
     'use strict';
 
     var TimestampHelper,
-        lodash = require('lodash'),
-        Utils = require('./../mustacher-utils'),
-        Handlebars = require('handlebars');
+        Handlebars = require('handlebars'),
+        mustacher = require('./../mustacher'),
+        isnumber = require('lodash.isnumber');
 
     TimestampHelper = function () {};
 
@@ -28,7 +28,7 @@
 
     TimestampHelper.prototype.render = function (count, options) {
         var data, plus = 0,
-            args = Utils.hasOptions(arguments);
+            args = mustacher.hasOptions(arguments);
         if (!args || args.length < 1) {
             throw new Error('Timestamp helper missing arguments');
         }
@@ -36,7 +36,7 @@
             options = count;
         } else {
             count = parseFloat(count);
-            if (lodash.isNumber(count)) {
+            if (isnumber(count)) {
                 plus = Math.round(count);
             }
         }

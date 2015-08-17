@@ -11,10 +11,16 @@
         expect = require('chai').expect,
         mustacher = require(path.join(cwd, 'src/mustacher.js')),
         // helpers
+        conditions = require(path.join(cwd, 'src/helpers/conditions.js')),
         equal = require(path.join(cwd, 'src/helpers/equal.js')),
         image = require(path.join(cwd, 'src/helpers/image.js')),
+        include = require(path.join(cwd, 'src/helpers/include.js')),
+        literal = require(path.join(cwd, 'src/helpers/literal.js')),
+        livereload = require(path.join(cwd, 'src/helpers/livereload.js')),
+        // lorem = require(path.join(cwd, 'src/helpers/lorem.js')),
+        random = require(path.join(cwd, 'src/helpers/random.js')),
         repeat = require(path.join(cwd, 'src/helpers/repeat.js')),
-        include = require(path.join(cwd, 'src/helpers/include.js'));
+        timestamp = require(path.join(cwd, 'src/helpers/timestamp.js'));
 
     function stubArguments() {
         return arguments;
@@ -90,26 +96,35 @@
                 spy.restore();
             });
             it('call register on include helper/image/repeat', function () {
-                var helpers = ['include'],
-                    spyImage = sinon.stub(image.prototype, 'register'),
-                    spyRepeat = sinon.stub(repeat.prototype, 'register'),
-                    spyInclude = sinon.stub(include.prototype, 'register');
+                var spies = [
+                        sinon.stub(image.prototype, 'register'),
+                        sinon.stub(repeat.prototype, 'register'),
+                        sinon.stub(include.prototype, 'register')
+                    ],
+                    helpers = ['include', 'image', 'repeat'];
                 mustacher.register(helpers);
-                expect(spyImage.callCount).to.equal(1);
-                expect(spyRepeat.callCount).to.equal(1);
-                expect(spyInclude.callCount).to.equal(1);
-                spyInclude.restore();
+                spies.forEach(function (spy) {
+                    expect(spy.callCount).to.equal(1);
+                    spy.restore();
+                });
             });
             it('call register on defaults helpers', function () {
-                var helpers = ['include'],
-                    spyImage = sinon.stub(image.prototype, 'register'),
-                    spyRepeat = sinon.stub(repeat.prototype, 'register'),
-                    spyInclude = sinon.stub(include.prototype, 'register');
-                mustacher.register(helpers);
-                expect(spyImage.callCount).to.equal(1);
-                expect(spyRepeat.callCount).to.equal(1);
-                expect(spyInclude.callCount).to.equal(1);
-                spyInclude.restore();
+                var spies = [
+                    sinon.stub(conditions.prototype, 'register'),
+                    sinon.stub(equal.prototype, 'register'),
+                    sinon.stub(image.prototype, 'register'),
+                    sinon.stub(include.prototype, 'register'),
+                    sinon.stub(literal.prototype, 'register'),
+                    sinon.stub(livereload.prototype, 'register'),
+                    sinon.stub(random.prototype, 'register'),
+                    sinon.stub(repeat.prototype, 'register'),
+                    sinon.stub(timestamp.prototype, 'register')
+                ];
+                mustacher.register();
+                spies.forEach(function (spy) {
+                    expect(spy.callCount).to.equal(1);
+                    spy.restore();
+                });
             });
         });
 

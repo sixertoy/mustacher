@@ -16,9 +16,9 @@
     'use strict';
 
     var EqualHelper,
-        lodash = require('lodash'),
-        Utils = require('./../mustacher-utils'),
-        Handlebars = require('handlebars');
+        Handlebars = require('handlebars'),
+        isequal = require('lodash.isequal'),
+        mustacher = require('./../mustacher');
 
     EqualHelper = function () {};
 
@@ -29,12 +29,12 @@
     EqualHelper.prototype.render = function (lvalue, rvalue, options) {
         var data,
             context = {},
-            args = Utils.hasOptions(arguments);
+            args = mustacher.hasOptions(arguments);
         if (!args || args.length < 3) {
             throw new Error('EqualHelper parameters is missing');
         }
         data = Handlebars.createFrame(options.data || {});
-        if (!lodash.isEqual(lvalue, rvalue)) {
+        if (!isequal(lvalue, rvalue)) {
             return options.inverse(context, { data: data });
         } else {
             return options.fn(context, { data: data });

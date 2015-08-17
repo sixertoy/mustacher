@@ -16,8 +16,8 @@
     'use strict';
 
     var LiteralHelper,
-        Utils = require('./../mustacher-utils'),
-        Handlebars = require('handlebars');
+        Handlebars = require('handlebars'),
+        mustacher = require('./../mustacher');
 
     LiteralHelper = function () {};
 
@@ -31,7 +31,7 @@
 
         var data,
             root,
-            args = Utils.hasOptions(arguments);
+            args = mustacher.hasOptions(arguments);
 
         if (!args || args.length < 1) {
             throw new Error('Literal Helper arguments is missing');
