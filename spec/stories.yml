@@ -35,3 +35,13 @@ src/helpers/equal.js:
 src/helpers/image.js:
   register:
     - handlebars registerHelper called once
+  render:
+    - throws missing arguments
+    - not throws missing arguments
+  returns an image of 300x300:
+    no width no height:
+    no height:
+    height 300:
+  returns an image of 400x300:
+  returns an image of 300x400:
+    height 300:

@@ -33,7 +33,7 @@
             args = mustacher.hasOptions(arguments);
 
         if (!args || args.length < 1) {
-            throw new Error('Image helper missing arguments');
+            throw new Error('missing arguments');
         }
         if (args.length < 2) {
             options = width;
