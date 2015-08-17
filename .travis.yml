@@ -5,7 +5,7 @@ node_js:
 before_install:
   - npm install -g istanbul coveralls mocha
 script:
-  - npm test --verbose
+  - npm test ./spec/src/**/* --verbose
 after_success:
   - cat ./coverage/lcov.info | coveralls && rm -rf ./coverage
 
