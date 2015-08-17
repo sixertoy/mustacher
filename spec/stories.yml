@@ -32,3 +32,6 @@ src/helpers/equal.js:
   isequal:
     - return true
     - return false
+src/helpers/image.js:
+  register:
+    - handlebars registerHelper called once
