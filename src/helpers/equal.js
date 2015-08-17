@@ -31,7 +31,7 @@
             context = {},
             args = mustacher.hasOptions(arguments);
         if (!args || args.length < 3) {
-            throw new Error('EqualHelper parameters is missing');
+            throw new Error('missing arguments');
         }
         data = Handlebars.createFrame(options.data || {});
         if (!isequal(lvalue, rvalue)) {
