@@ -48,6 +48,7 @@
   },
   "devDependencies": {
     "chai": "^3.2.0",
+    "coveralls": "^2.11.4",
     "gulp": "^3.9.0",
     "mocha": "^2.2.5",
     "noop": "^0.2.2",
