@@ -15,6 +15,11 @@
     'use strict';
 
     var RandomHelper,
+        defaults = {
+            min: 0,
+            max: 1,
+            rounded: false
+        },
         Handlebars = require('handlebars'),
         random = require('lodash.random'),
         isnumber = require('lodash.isnumber'),
@@ -31,37 +36,41 @@
      * @TODO ajout d'un string comme arg pour parametrage custom
      * @see htt://placehold.it
      */
-    RandomHelper.prototype.render = function (min, max, round, options) { // jshint ignore:line
-        var args = mustacher.hasOptions(arguments);
+    RandomHelper.prototype.render = function (min, max, rounded, options) { // jshint ignore:line
+        var tmp,
+            args = mustacher.hasOptions(arguments);
         if (!args) {
-            throw new Error('RandomHelper arguments is missing');
+            throw new Error('missing arguments');
         }
-
         if (args.length < 2) {
-            return random(0, 1, false);
+            options = min;
+            min = defaults.min;
+            max = defaults.max;
+            rounded = defaults.rounded;
+        } else if (args.length < 3 && isboolean(min)) {
+            options = max;
+            rounded = min;
+            min = defaults.min;
+            max = defaults.max;
+        } else if (args.length < 3 && isnumber(min)) {
+            options = max;
+            max = defaults.max;
+            rounded = defaults.rounded;
+        } else if (args.length < 4) {
+            options = rounded;
+            rounded = defaults.rounded;
         }
-
-        if (args.length < 3) {
-            if (isnumber(min)) {
-                return random(0, min, false);
-            } else if (isboolean(min)) {
-                return random(0, 1, min);
-            } else {
-                throw new Error('Random helper unknow arguments');
-            }
+        if (!isnumber(min) || !isnumber(max) || !isboolean(rounded)) {
+            throw new Error('missing arguments');
         }
-
-        if (args.length < 4) {
-            if (isnumber(max)) {
-                return random(min, max, false);
-            } else if (isboolean(max)) {
-                return random(0, min, max);
-            } else {
-                throw new Error('Random helper unknow arguments');
-            }
+        //
+        // inversion si max inferieur a min
+        if (isnumber(min) && isnumber(max) && (min >= max)) {
+            tmp = min;
+            min = max;
+            max = tmp;
         }
-
-        return random(min, max, round);
+        return random(min, max, !rounded);
     };
 
     module.exports = RandomHelper;

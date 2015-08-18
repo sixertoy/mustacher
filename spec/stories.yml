@@ -75,3 +75,28 @@ src/helpers/livereload.js:
   render with port setted and debug setted:
     - returns debug true port 53739
     - returns empty string debug false port 53739
+src/helpers/random.js:
+  register:
+    - call handlebars registerHelper once
+  render:
+    - throw no arguments
+    - not throw no arguments
+    - call mustacher hasoptions once
+  render with arguments:
+    - returns a number between 0 and 1
+    - returns a number between 0 and 2
+    - returns a number between 1 and 2
+    - returns a number between 100 and 200
+    - returns a number between 0 and 1 rounded
+    - returns a number between 0 and 2 rounded
+    - returns a number between 1 and 2 rounded
+    - returns a number between 100 and 200 rounded
+src/helpers/timestamp.js:
+  render:
+    - returns toto
+
+
+
+
+
+
