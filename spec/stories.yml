@@ -45,3 +45,17 @@ src/helpers/image.js:
     - width 400 no height (same as width)
   returns an image of 500x220:
     - width 500 height 220
+src/helpers/literal.js:
+  register:
+    - call handlebars registerHelper 3 times
+  render:
+    - throw no arguments
+    - not throw no arguments
+    - call mustacher hasoptions once
+    - call handlebars createframe once
+  delimiters:
+    - returns {{
+    - returns }}
+    - returns exotic user define delim [*
+    - returns exotic user define delim *]
+

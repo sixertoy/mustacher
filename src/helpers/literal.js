@@ -29,25 +29,28 @@
 
     LiteralHelper.prototype.render = function (options) {
 
-        var data,
-            root,
+        var data, result,
             args = mustacher.hasOptions(arguments);
 
         if (!args || args.length < 1) {
-            throw new Error('Literal Helper arguments is missing');
+            throw new Error('missing arguments');
         }
 
         data = Handlebars.createFrame(options.data || {});
-        root = data.root;
 
         switch (options.name) {
         case '$ldim':
-            return root.delimiter.ldim;
+            result = data.root.delimiter.ldim || '}}';
+            break;
         case '$rdim':
-            return root.delimiter.rdim;
+            result = data.root.delimiter.rdim || '{{';
+            break;
         case 'raw':
-            return options.fn();
+            result = options.fn();
+            break;
         }
+
+        return result;
 
     };
 
