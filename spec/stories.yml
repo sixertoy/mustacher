@@ -58,4 +58,20 @@ src/helpers/literal.js:
     - returns }}
     - returns exotic user define delim [*
     - returns exotic user define delim *]
-
+src/helpers/livereload.js:
+  register:
+    - call handlebars registerHelper once
+  render:
+    - throw no arguments
+    - not throw no arguments
+    - call mustacher hasoptions once
+  render with defaults:
+    - returns debug true port 1337
+  render with debug setted only:
+    - returns debug true port 1337
+    - returns empty string debug false port 1337
+  render with port setted only:
+    - returns debug true port 53739
+  render with port setted and debug setted:
+    - returns debug true port 53739
+    - returns empty string debug false port 53739

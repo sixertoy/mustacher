@@ -15,7 +15,16 @@
 
     'use strict';
 
-    var LivereloadHelper,
+    var // variables
+        LivereloadHelper,
+        defaults = {
+            port: 1337,
+            debug: true
+        },
+        // lodash
+        isnumber = require('lodash.isnumber'),
+        isboolean = require('lodash.isboolean'),
+        // requires
         Handlebars = require('handlebars'),
         mustacher = require('./../mustacher'),
         isplainobject = require('lodash.isplainobject');
@@ -26,23 +35,38 @@
         Handlebars.registerHelper('$livereload', this.render.bind(this));
     };
 
-    LivereloadHelper.prototype.render = function (port, options) {
-        var result, args = mustacher.hasOptions(arguments);
+    LivereloadHelper.prototype.render = function (port, debug, options) {
+        var result,
+            args = mustacher.hasOptions(arguments);
+
         if (!args || args.length < 1) {
-            throw new Error('Livereload Helper arguments is missing');
+            throw new Error('missing arguments');
         }
-
-        if (isplainobject(port) && args.length < 2) {
+        // parse args
+        if (args.length < 2) {
             options = port;
-            port = 1337;
+            port = defaults.port;
+            debug = defaults.debug;
         }
+        if (args.length < 3) {
+            options = debug;
+        }
+        if (args.length < 3 && isboolean(port)) {
+            debug = port;
+            port = defaults.port;
+        } else if (args.length < 3 && isnumber(port)) {
+            debug = defaults.debug;
+        }
+        // execute
+        result = '';
         port = parseFloat(port);
-
-        // if(Grunt.option('debug')){
-        result = '<script src="http://localhost:' + port + '/livereload.js"></script>';
-        // }
-        return new Handlebars.SafeString(result);
-
+        if (debug) {
+            result += '<!-- livereload: use only in development environment -->';
+            result += '<script src="http://localhost:' + port + '/livereload.js"></script>';
+            result += '<!-- endof livereload -->';
+            result = new Handlebars.SafeString(result);
+        }
+        return result;
     };
 
     module.exports = LivereloadHelper;
