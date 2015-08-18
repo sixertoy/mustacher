@@ -39,9 +39,9 @@ src/helpers/image.js:
     - throws missing arguments
     - not throws missing arguments
   returns an image of 300x300:
-    no width no height:
-    no height:
-    height 300:
-  returns an image of 400x300:
-  returns an image of 300x400:
-    height 300:
+    - no width no height (300 default)
+    - width 300 no height (300 default)
+  returns an image of 400x400:
+    - width 400 no height (same as width)
+  returns an image of 500x220:
+    - width 500 height 220

@@ -31,18 +31,15 @@
         afterEach(function () {});
 
         describe('register', function () {
-
             it('handlebars registerHelper called once', function () {
                 sinon.spy(handlebars, 'registerHelper');
                 helper.register();
                 expect(handlebars.registerHelper.callCount).to.equal(1);
                 handlebars.registerHelper.restore();
             });
-
         });
 
         describe('render', function () {
-
             it('throws missing arguments', function () {
                 expect(function () {
                     helper.render();
@@ -57,13 +54,11 @@
                     helper.render(true, handlebarsOptions);
                 }).to.throw('missing arguments');
             });
-
             it('not throws missing arguments', function () {
                 expect(function () {
                     helper.render(true, false, handlebarsOptions);
                 }).not.to.throw('missing arguments');
             });
-
             it('handlebars createFrame called', function () {
                 sinon.spy(handlebars, 'createFrame');
                 helper.register();
@@ -71,7 +66,6 @@
                 expect(handlebars.createFrame.callCount).to.equal(1);
                 handlebars.createFrame.restore();
             });
-
         });
 
         describe('isequal', function () {

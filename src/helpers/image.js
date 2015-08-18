@@ -44,9 +44,11 @@
             height = false;
         }
         width = isnumber(width) ? width : 300;
-        result = 'http://placehold.it/' + width;
+        result = '//placehold.it/' + width;
         if (isnumber(height)) {
             result += 'x' + height;
+        } else {
+            result += 'x' + width;
         }
         return new Handlebars.SafeString('<img src="' + result + '" alt="" title="" />');
     };
