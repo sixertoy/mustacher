@@ -21,6 +21,7 @@
         sinon = require('sinon'),
         expect = require('chai').expect,
         handlebars = require('handlebars'),
+        mustacher = require(path.join(cwd, 'src/mustacher.js')),
         Conditions = require(path.join(cwd, 'src/helpers/conditions.js'));
 
     describe('conditions', function () {
@@ -70,6 +71,13 @@
                 helper.render(true, false, handlebarsOptions);
                 expect(handlebars.createFrame.callCount).to.equal(1);
                 handlebars.createFrame.restore();
+            });
+            it('call mustacher hasOptions once', function(){
+                sinon.spy(mustacher, 'hasOptions');
+                helper.register();
+                helper.render(true, false, handlebarsOptions);
+                expect(mustacher.hasOptions.callCount).to.equal(1);
+                mustacher.hasOptions.restore();
             });
         });
         describe('or', function () {

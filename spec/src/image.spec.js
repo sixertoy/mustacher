@@ -11,6 +11,7 @@
         sinon = require('sinon'),
         expect = require('chai').expect,
         handlebars = require('handlebars'),
+        mustacher = require(path.join(cwd, 'src/mustacher.js')),
         Image = require(path.join(cwd, 'src/helpers/image.js'));
     describe('image', function() {
         beforeEach(function() {
@@ -37,6 +38,13 @@
                 expect(function(){
                     helper.render({name: '$image'});
                 }).not.to.throw('missing arguments');
+            });
+            it('call mustacher hasOptions once', function(){
+                sinon.spy(mustacher, 'hasOptions');
+                helper.register();
+                helper.render({name: '$image'});
+                expect(mustacher.hasOptions.callCount).to.equal(1);
+                mustacher.hasOptions.restore();
             });
         });
         describe('returns an image of 300x300', function() {
