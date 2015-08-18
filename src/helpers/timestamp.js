@@ -30,7 +30,7 @@
         var data, plus = 0,
             args = mustacher.hasOptions(arguments);
         if (!args || args.length < 1) {
-            throw new Error('Timestamp helper missing arguments');
+            throw new Error('missing arguments');
         }
         if (args.length < 2) {
             options = count;
@@ -40,10 +40,8 @@
                 plus = Math.round(count);
             }
         }
-        if(options.data){
-            data = Handlebars.createFrame(options.data);
-            data.time = ((!Date.now) ? new Date().getTime() : Date.now()) + plus;
-        }
+        data = Handlebars.createFrame(options.data || {});
+        data.time = ((!Date.now) ? new Date().getTime() : Date.now()) + plus;
         return data.time;
     };
 

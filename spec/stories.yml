@@ -92,8 +92,18 @@ src/helpers/random.js:
     - returns a number between 1 and 2 rounded
     - returns a number between 100 and 200 rounded
 src/helpers/timestamp.js:
+  register:
+    - call handlebars registerHelper once
   render:
-    - returns toto
+    - throw no arguments
+    - not throw no arguments
+    - call mustacher hasoptions once
+    - call handlebars createframe once
+  returns number:
+    - length 13
+    - sup a now
+    - sup a now + 1000
+    - inf a now + 2000
 
 
 
