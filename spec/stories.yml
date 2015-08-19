@@ -104,9 +104,3 @@ src/helpers/timestamp.js:
     - sup a now
     - sup a now + 1000
     - inf a now + 2000
-
-
-
-
-
-

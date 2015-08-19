@@ -34,11 +34,11 @@
             output = '',
             args = mustacher.hasOptions(arguments);
         if (!args || args.length <= 1) {
-            throw new Error('Repeat arguments is missing');
+            throw new Error('missing arguments');
         }
         count = parseFloat(count);
         if (isnan(count)) {
-            throw new Error('Repeat arguments is not valid');
+            throw new Error('arguments not valid');
         }
         for (i = 0; i < count; i++) {
             if (options.data) {
