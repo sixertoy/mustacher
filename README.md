@@ -17,11 +17,9 @@ var mustacher = require('mustacher');
 mustacher(str, context);
 ```
 
-## Options
-
-## Issues
-
 ## History
+
+- v0.1.1 exported from [grunt-mustacher](https://www.npmjs.com/package/grunt-mustacher)
 
 [grunt-img]: https://cdn.gruntjs.com/builtwith.png
 [license-img]: http://img.shields.io/badge/license-MIT-blue.svg?style=flat-square
