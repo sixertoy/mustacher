@@ -18,7 +18,7 @@
     var ImageHelper,
         Handlebars = require('handlebars'),
         isnumber = require('lodash.isnumber'),
-        mustacher = require('./../mustacher');
+        mustacher = require('./../index');
 
     ImageHelper = function () {};
 

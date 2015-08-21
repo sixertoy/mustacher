@@ -23,7 +23,7 @@
         sinon = require('sinon'),
         expect = require('chai').expect,
         handlebars = require('handlebars'),
-        mustacher = require(path.join(cwd, 'src/mustacher.js')),
+        mustacher = require(path.join(cwd, 'src/index.js')),
         Literal = require(path.join(cwd, 'src/helpers/literal.js'));
     describe('literal', function () {
         beforeEach(function () {

@@ -21,7 +21,7 @@
         sinon = require('sinon'),
         expect = require('chai').expect,
         handlebars = require('handlebars'),
-        mustacher = require(path.join(cwd, 'src/mustacher.js')),
+        mustacher = require(path.join(cwd, 'src/index.js')),
         Equal = require(path.join(cwd, 'src/helpers/equal.js'));
 
     describe('equal', function () {

@@ -9,7 +9,7 @@
         noop = require('noop'),
         sinon = require('sinon'),
         expect = require('chai').expect,
-        mustacher = require(path.join(cwd, 'src/mustacher.js')),
+        mustacher = require(path.join(cwd, 'src/index.js')),
         // helpers
         conditions = require(path.join(cwd, 'src/helpers/conditions.js')),
         equal = require(path.join(cwd, 'src/helpers/equal.js')),
@@ -34,29 +34,29 @@
         describe('render', function () {
             it('throw if no argument', function () {
                 expect(function () {
-                    mustacher.render();
+                    mustacher();
                 }).to.throw('missing arguments');
             });
             it('should return helloworld', function () {
-                result = mustacher.render('hello world!');
+                result = mustacher('hello world!');
                 expect(result).to.equal('hello world!');
             });
             it('should return \'\' no context', function () {
-                result = mustacher.render('{{content}}');
+                result = mustacher('{{content}}');
                 expect(result).to.equal('');
             });
             it('should return \'\' empty context', function () {
-                result = mustacher.render('{{content}}', {});
+                result = mustacher('{{content}}', {});
                 expect(result).to.equal('');
             });
             it('should return helloworld', function () {
-                result = mustacher.render('{{content}}', {
+                result = mustacher('{{content}}', {
                     content: 'hello world!'
                 });
                 expect(result).to.equal('hello world!');
             });
             it('should return <h1>helloworld</h1>', function () {
-                result = mustacher.render('<h1>{{content}}</h1>', {
+                result = mustacher('<h1>{{content}}</h1>', {
                     content: 'hello world!'
                 });
                 expect(result).to.equal('<h1>hello world!</h1>');

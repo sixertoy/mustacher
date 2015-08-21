@@ -18,7 +18,7 @@
     var ConditionsHelper,
         Handlebars = require('handlebars'),
         compact = require('lodash.compact'),
-        mustacher = require('./../mustacher');
+        mustacher = require('./../index');
 
     ConditionsHelper = function () {};
 

@@ -26,7 +26,7 @@
         isboolean = require('lodash.isboolean'),
         // requires
         Handlebars = require('handlebars'),
-        mustacher = require('./../mustacher'),
+        mustacher = require('./../index'),
         isplainobject = require('lodash.isplainobject');
 
     LivereloadHelper = function () {};

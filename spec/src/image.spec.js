@@ -11,7 +11,7 @@
         sinon = require('sinon'),
         expect = require('chai').expect,
         handlebars = require('handlebars'),
-        mustacher = require(path.join(cwd, 'src/mustacher.js')),
+        mustacher = require(path.join(cwd, 'src/index.js')),
         Image = require(path.join(cwd, 'src/helpers/image.js'));
     describe('image', function () {
         beforeEach(function () {

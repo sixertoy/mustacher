@@ -17,7 +17,7 @@
         LF = '\n',
         path = require('path'),
         Handlebars = require('handlebars'),
-        mustacher = require('./../mustacher'),
+        mustacher = require('./../index'),
         isstring = require('lodash.isstring');
 
     IncludeHelper = function () {};

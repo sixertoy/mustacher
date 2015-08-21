@@ -17,7 +17,7 @@
 
     var TimestampHelper,
         Handlebars = require('handlebars'),
-        mustacher = require('./../mustacher'),
+        mustacher = require('./../index'),
         isnumber = require('lodash.isnumber');
 
     TimestampHelper = function () {};

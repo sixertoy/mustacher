@@ -23,7 +23,7 @@
         Handlebars = require('handlebars'),
         random = require('lodash.random'),
         isnumber = require('lodash.isnumber'),
-        mustacher = require('./../mustacher'),
+        mustacher = require('./../index'),
         isboolean = require('lodash.isboolean');
 
     RandomHelper = function () {};

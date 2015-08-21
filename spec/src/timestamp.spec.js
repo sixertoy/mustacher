@@ -15,7 +15,7 @@
         sinon = require('sinon'),
         expect = require('chai').expect,
         handlebars = require('handlebars'),
-        mustacher = require(path.join(cwd, 'src/mustacher.js')),
+        mustacher = require(path.join(cwd, 'src/index.js')),
         Timestamp = require(path.join(cwd, 'src/helpers/timestamp.js'));
     describe('timestamp', function () {
         beforeEach(function () {

@@ -17,7 +17,7 @@
 
     var LiteralHelper,
         Handlebars = require('handlebars'),
-        mustacher = require('./../mustacher');
+        mustacher = require('./../index');
 
     LiteralHelper = function () {};
 

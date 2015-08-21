@@ -18,7 +18,7 @@
     var EqualHelper,
         Handlebars = require('handlebars'),
         isequal = require('lodash.isequal'),
-        mustacher = require('./../mustacher');
+        mustacher = require('./../index');
 
     EqualHelper = function () {};
 

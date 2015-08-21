@@ -14,7 +14,7 @@
         sinon = require('sinon'),
         expect = require('chai').expect,
         handlebars = require('handlebars'),
-        mustacher = require(path.join(cwd, 'src/mustacher.js')),
+        mustacher = require(path.join(cwd, 'src/index.js')),
         Random = require(path.join(cwd, 'src/helpers/random.js'));
     describe('random', function () {
         beforeEach(function () {
