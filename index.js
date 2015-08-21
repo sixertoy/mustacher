@@ -12,6 +12,6 @@
 
     'use strict';
 
-    module.exports = require('./src/mustacher');
+    module.exports = require('./src/index');
 
 }());

@@ -6,7 +6,16 @@
 
 ## Install
 
+```bash
+npm install mustacher --save
+```
+
 ## Usage
+
+```javascript
+var mustacher = require('mustacher');
+mustacher(str, context);
+```
 
 ## Options
 

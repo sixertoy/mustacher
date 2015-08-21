@@ -16,7 +16,14 @@
         // requires
         gulp = require('gulp'),
         path = require('path'),
+        bump = require('gulp-bump'),
         jshint = require('gulp-jshint');
+
+    gulp.task('bump', function () {
+        gulp.src('./package.json')
+            .pipe(bump())
+            .pipe(gulp.dest('./'));
+    });
 
     gulp.task('default', function () {
         gulp.src(path.join(src))

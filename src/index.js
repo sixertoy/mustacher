@@ -6,6 +6,7 @@
 
     var // variables
         mustacher,
+        _isRegistered = false,
         _defaults = { // handlebars config
             root: {
                 cwd: process.cwd(),
@@ -39,19 +40,18 @@
         isstring = require('lodash.isstring'),
         isplainobject = require('lodash.isplainobject');
 
-    mustacher = function () {};
-
     mustacher.register = function (helpers) {
         var helper, Proto;
-        (helpers || _helpers).forEach(function (name) {
+        helpers.forEach(function (name) {
             Proto = require(path.join(__dirname, 'helpers', name));
             helper = new Proto();
             helper.register();
         });
+        _isRegistered = true;
     };
 
     /**
-     *
+
      * Mustacher
      *
      */
@@ -63,9 +63,12 @@
         return isplainobject(args[args.length - 1]) && args[args.length - 1].hasOwnProperty('name') ? args : false;
     };
 
-    mustacher.render = function (str, context) {
+    mustacher = function (str, context) {
         if (arguments.length < 1 || !isstring(str) || isempty(str)) {
             throw new Error('missing arguments');
+        }
+        if (!_isRegistered) {
+            mustacher.register(_helpers);
         }
         context = context || {};
         return handlebars.compile(str, {
