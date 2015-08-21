@@ -13,8 +13,25 @@ npm install mustacher --save
 ## Usage
 
 ```javascript
-var mustacher = require('mustacher');
-mustacher(str, context);
+var str = '<html><head><title>{{title}}</title></head><body><ul>{{#repeat 3}}<li>Hello {{@index}}</li>{{/repeat}}</ul></body></html>';
+result = mustacher(str, {title: 'this is a title'});
+```
+
+**output**
+
+```html
+<html>
+    <head>
+        <title>this is a title</title>
+    </head>
+    <body>
+        <ul>
+            <li>Hello 0</li>
+            <li>Hello 1</li>
+            <li>Hello 2</li>
+        </ul>
+    </body>
+</html>
 ```
 
 ## History
