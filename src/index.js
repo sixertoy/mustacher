@@ -56,10 +56,10 @@
     };
 
     mustacher.register = function (helpers) {
-        var helper, Proto;
+        var helper, HelperPrototype;
         (helpers || _helpers).forEach(function (name) {
-            Proto = require(path.join(__dirname, 'helpers', name));
-            helper = new Proto();
+            HelperPrototype = require(path.join(__dirname, 'helpers', name));
+            helper = new HelperPrototype();
             helper.register();
         });
         _isRegistered = true;
