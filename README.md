@@ -116,13 +116,6 @@ toto{{$rdim}}
 {{$ldim}}toto{{$rdim}}
 ```
 
-#### raw
-```html
-{{{{raw}}}}
-{{toto}}
-{{{{/raw}}}}
-```
-
 ### blocks
 
 <a name="repeat"><a>
