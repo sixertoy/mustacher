@@ -1,5 +1,5 @@
 <a name="description"></a>
-# mustacher [![Built with Grunt][grunt-img]](http://gruntjs.com/)
+# Mustacher [![Built with Grunt][grunt-img]](http://gruntjs.com/)
 
 [![MIT License][license-img]][license-url] [![NPM version][npm-version-img]][npm-url] [![NPM downloads][npm-downloads-img]][npm-url] [![build][travis-img]][travis-url] [![coverage][coverall-img]][coverall-url]
 
