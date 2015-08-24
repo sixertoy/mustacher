@@ -1,5 +1,5 @@
 /*jslint indent: 4, nomen: true, plusplus: true */
-/*globals require, module, process, __dirname */
+/*globals require, module, process, __dirname, console */
 (function () {
 
     'use strict';
@@ -48,11 +48,16 @@
             mustacher.register();
         }
         context = context || {};
-        return handlebars.compile(str, {
-            trackIds: false
-        })(context, {
-            data: _defaults
-        }).trim();
+        try {
+            return handlebars.compile(str, {
+                trackIds: false
+            })(context, {
+                data: _defaults
+            }).trim();
+        } catch (e) {
+            console.log(e.stack);
+            throw new Error('Mustacher error');
+        }
     };
 
     mustacher.register = function (helpers) {
