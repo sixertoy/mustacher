@@ -1,3 +1,4 @@
+<a name="description"></a>
 # mustacher [![Built with Grunt][grunt-img]](http://gruntjs.com/)
 
 [![MIT License][license-img]][license-url] [![NPM version][npm-version-img]][npm-url] [![NPM downloads][npm-downloads-img]][npm-url] [![build][travis-img]][travis-url] [![coverage][coverall-img]][coverall-url]
@@ -6,6 +7,7 @@
 
 > It provide an easy way to **include** handlebar's partials files inside HTML template page with a few helpers list like **repeat (loop)**, **or**, **and**.
 
+<a name="install"></a>
 ## Install
 
 ```bash
@@ -171,11 +173,18 @@ toto{{$rdim}}
 {{/equal}}
 ```
 
+<a name="issues"></a>
 ## Issues
 
 **not yet implemented**
 
 - Lorem Ipsum
+
+<a name="dependent"></a>
+## Dependent
+
+- [gulp-mustacher](https://www.npmjs.com/package/gulp-mustacher)
+- [grunt-mustacher](https://www.npmjs.com/package/grunt-mustacher)
 
 [grunt-img]: https://cdn.gruntjs.com/builtwith.png
 [license-img]: http://img.shields.io/badge/license-MIT-blue.svg?style=flat-square
