@@ -33,7 +33,14 @@
     "include",
     "dummy",
     "image",
-    "templates"
+    "templates",
+    "files",
+    "lorem ipsum",
+    "mustache",
+    "htmlbars",
+    "precompile",
+    "tpl",
+    "cms"
   ],
   "author": {
     "name": "Matthieu Lassalvy",

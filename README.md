@@ -180,8 +180,8 @@ toto{{$rdim}}
 
 - Lorem Ipsum
 
-<a name="dependent"></a>
-## Dependent
+<a name="dependents"></a>
+## Dependents
 
 - [gulp-mustacher](https://www.npmjs.com/package/gulp-mustacher)
 - [grunt-mustacher](https://www.npmjs.com/package/grunt-mustacher)
