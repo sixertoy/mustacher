@@ -2,9 +2,6 @@
 
 [![MIT License][license-img]][license-url] [![NPM version][npm-version-img]][npm-url] [![NPM downloads][npm-downloads-img]][npm-url] [![build][travis-img]][travis-url] [![coverage][coverall-img]][coverall-url]
 
-
-> **Build over [Mustacher module](https://www.npmjs.com/package/mustacher)**
-
 > Designed for fit my own needs to build HTML static pages to be incorpored inside a website based on Magento, eZPublish or Drupal templates
 
 > It provide an easy way to **include** handlebar's partials files inside HTML template page with a few helpers list like **repeat (loop)**, **or**, **and**.
@@ -38,8 +35,6 @@ npm install mustacher --save
 ## Examples
 
 ### inline
-
-> more examples on [branch](https://github.com/sixertoy/grunt-mustacher/tree/examples)
 
 <a name="include"><a>
 ### $include
@@ -181,10 +176,6 @@ toto{{$rdim}}
 **not yet implemented**
 
 - Lorem Ipsum
-
-## History
-
-- v0.1.1 exported from [grunt-mustacher](https://www.npmjs.com/package/grunt-mustacher)
 
 [grunt-img]: https://cdn.gruntjs.com/builtwith.png
 [license-img]: http://img.shields.io/badge/license-MIT-blue.svg?style=flat-square
