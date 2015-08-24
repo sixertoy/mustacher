@@ -5,7 +5,7 @@
 
 > Designed for fit my own needs to build HTML static pages to be incorpored inside a website based on Magento, eZPublish or Drupal templates
 
-> It provide an easy way to **include** handlebar's partials files inside HTML template page with a few helpers list like **repeat (loop)**, **or**, **and**.
+> It provide an easy way to **include** handlebar's partials files inside HTML template page with a minimal list of helpers like **include**, **repeat (loop)**, **or**, **and**, **livereload**...
 
 <a name="install"></a>
 ## Install
