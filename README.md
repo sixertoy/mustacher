@@ -186,6 +186,11 @@ toto{{$rdim}}
 - [gulp-mustacher](https://www.npmjs.com/package/gulp-mustacher)
 - [grunt-mustacher](https://www.npmjs.com/package/grunt-mustacher)
 
+## Examples
+
+> [Grunt examples in repository's sub branch](https://github.com/sixertoy/grunt-mustacher/tree/examples)
+
+
 [grunt-img]: https://cdn.gruntjs.com/builtwith.png
 [license-img]: http://img.shields.io/badge/license-MIT-blue.svg?style=flat-square
 [license-url]: LICENSE-MIT
