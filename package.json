@@ -1,8 +1,10 @@
 {
   "name": "mustacher",
+  "title": "Mustacher",
   "version": "0.1.3",
-  "description": "Render templates with Handlebars",
+  "description": "Perfect for templating eZPublish, Magento, Drupal... CMS models",
   "main": "index.js",
+  "homepage": "http://github.com/sixertoy/mustacher/",
   "scripts": {
     "clear": "rm -rf node_modules",
     "test": "istanbul cover -x *.spec.js node_modules/mocha/bin/_mocha --report lcovonly -- -R spec ./spec/src/*.spec.js",
@@ -16,15 +18,32 @@
     "url": "https://github.com/sixertoy/mustacher"
   },
   "keywords": [
-    "grunt"
+    "handlebars",
+    "helpers",
+    "html",
+    "static",
+    "ezpublish",
+    "magento",
+    "drupal",
+    "repeat",
+    "loop",
+    "conditionals",
+    "or",
+    "and",
+    "include",
+    "dummy",
+    "image",
+    "templates"
   ],
-  "author": [
-    {
-      "name": "Matthieu Lassalvy",
-      "email": "sixertoy.github@gmail.com"
-    }
-  ],
-  "license": "MIT",
+  "author": {
+    "name": "Matthieu Lassalvy",
+    "email": "sixertoy.github@gmail.com",
+    "url": "https://github.com/sixertoy"
+  },
+  "license": {
+    "type": "MIT",
+    "url": "http://opensource.org/licenses/MIT"
+  },
   "bugs": {
     "url": "https://github.com/sixertoy/mustacher/issues"
   },
