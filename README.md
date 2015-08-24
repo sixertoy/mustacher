@@ -171,6 +171,12 @@ toto{{$rdim}}
 {{/equal}}
 ```
 
+## Issues
+
+**not yet implemented**
+
+- Lorem Ipsum
+
 ## History
 
 - v0.1.1 exported from [grunt-mustacher](https://www.npmjs.com/package/grunt-mustacher)
