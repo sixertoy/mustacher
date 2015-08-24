@@ -1,6 +1,10 @@
-scripts/
+spec
+scripts
+coverage
+node_modules
 .editorconfig
 .gitattributes
 .gitignore
 .jshintrc
-.jshintrc
+.travis.yml
+gulpfile.js
