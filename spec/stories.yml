@@ -104,3 +104,11 @@ src/helpers/timestamp.js:
     - sup a now
     - sup a now + 1000
     - inf a now + 2000
+src/helpers/include.js:
+  register:
+    - call handlebars registerHelper once
+  render:
+    - throw no arguments
+    - not throw no arguments
+    - call mustacher hasoptions once
+    - call handlebars createframe once
