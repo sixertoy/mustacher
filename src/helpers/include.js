@@ -26,41 +26,31 @@
         Handlebars.registerHelper('$include', this.render.bind(this));
     };
     IncludeHelper.prototype.render = function (filepath, options) {
-        var data, root, content, // .hbs content
-            absolute, // absolute .hbs path form system root
-            relative, // relative path from cwd to .hbs
+        var data, root, content,
             output = 'Unable to load file',
             args = mustacher.hasOptions(arguments);
         if (!args || args.length < 2 || !isstring(filepath)) {
             throw new Error('missing arguments');
         }
+        // recuperation des data
         data = Handlebars.createFrame(options.data || {});
-
-        /*
-        root = data.root;
-        // @TODO to test file path
-        absolute = path.join(root.cwd, root.partials.src, filepath);
-        absolute = path.normalize(absolute + root.partials.ext);
-        relative = path.relative(root.cwd, absolute);
-
-
-
-        if (!exists.sync(relative)) {
-            output = output + ' ' + relative;
+        // transformation du filepath en absolut
+        filepath = path.join(data.root.cwd, data.root.partials.src, filepath);
+        filepath += data.root.partials.ext;
+        // test si le fichier existe
+        if (!exists.sync(filepath)) {
+            filepath = path.relative(data.root.cwd, filepath);
+            output = '<!-- ' + filepath + ' -->' + LF + output + LF + '<!-- endof ' + filepath + ' -->';
         } else {
-            content = fs.readFileSync(relative, {
+            output = fs.readFileSync(filepath, {
                 encoding: 'utf8'
-            });
-            output = Handlebars.compile(content)(relative, {
-                data: data
             }).trim();
+            output = Handlebars.compile(output);
+            output = output({}, {
+                data: data
+            });
         }
-
-
-        output = '<!-- ' + relative + ' -->' + LF + output + LF + '<!-- endof ' + relative + ' -->';
         return new Handlebars.SafeString(output.trim());
-        */
-
     };
     module.exports = IncludeHelper;
 }());

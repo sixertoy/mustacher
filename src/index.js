@@ -18,7 +18,8 @@
                     depth: 2,
                     ext: '.hbs',
                     src: 'partials/'
-                }
+                },
+                context: {}
             }
         },
         _helpers = [
@@ -34,13 +35,15 @@
         ],
         // requires
         path = require('path'),
+        assign = require('lodash.assign'),
         handlebars = require('handlebars'),
         isempty = require('lodash.isempty'),
         toarray = require('lodash.toarray'),
         isstring = require('lodash.isstring'),
         isplainobject = require('lodash.isplainobject');
 
-    mustacher = function (str, context) {
+    mustacher = function (str, context, data) {
+        var template;
         if (arguments.length < 1 || !isstring(str) || isempty(str)) {
             throw new Error('missing arguments');
         }
@@ -48,11 +51,14 @@
             mustacher.register();
         }
         context = context || {};
+        _defaults.root.context = context;
+        data = data ? assign(_defaults, data) : _defaults;
         try {
-            return handlebars.compile(str, {
+            template = handlebars.compile(str, {
                 trackIds: false
-            })(context, {
-                data: _defaults
+            });
+            return template(context, {
+                data: data
             }).trim();
         } catch (e) {
             console.log(e.stack);
