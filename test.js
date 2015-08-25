@@ -33,8 +33,8 @@
             } else {
                 context = JSON.parse(context);
                 context = context || {};
-            }            
-            var data = handlebars.createFrame(options.data || {});  
+            }
+            var data = handlebars.createFrame(options.data || {});
             data = {
                 root: data.root,
                 _parent: data._parent,
@@ -54,7 +54,7 @@
             var stream, output, template, filepath, ext,
                 output = '',
                 filepath = path.join(options.data.root.cwd, options.data.root.partials.src, filename + options.data.root.partials.ext),
-                data = handlebars.createFrame(options.data || {});  
+                data = handlebars.createFrame(options.data || {});
             data = {
                 root: data.root,
                 _parent: data._parent

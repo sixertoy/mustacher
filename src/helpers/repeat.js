@@ -1,36 +1,25 @@
-/**
- * Grunt Mustacher
- * https://github.com/malas34/grunt-mustacher
- *
- * Copyright (c) 2014 Matthieu Lassalvy
- * Licensed under the MIT license.
- *
- * HANDLEBARS
- * @see http://handlebarsjs.com/
- *
- */
-/*jslint plusplus: true, indent: 4 */
+/*jslint plusplus: true, indent: 4, nomen: true */
 /*global require, module */
 (function () {
     'use strict';
 
     var RepeatHelper,
         isnan = require('lodash.isnan'),
-        Handlebars = require('handlebars'),
+        handlebars = require('handlebars'),
         mustacher = require('./../mustacher');
 
     RepeatHelper = function () {};
 
     RepeatHelper.prototype.register = function () {
-        Handlebars.registerHelper('repeat', this.render.bind(this));
+        handlebars.registerHelper('repeat', this.render.bind(this));
     };
 
     /**
-     * @TODO ajout d'un string comme arg pour parametrage custom
-     * @see htt://placehold.it
+     *
+     *
      */
-    RepeatHelper.prototype.render = function (count, options) {
-        var i, data, context,
+    RepeatHelper.prototype.render = function (count, context, options) {
+        var i, data, local,
             output = '',
             args = mustacher.hasOptions(arguments);
         if (!args || args.length <= 1) {
@@ -40,20 +29,31 @@
         if (isnan(count)) {
             throw new Error('arguments not valid');
         }
+        if (arguments.length < 3) {
+            options = context;
+            context = {};
+        } else {
+            context = JSON.parse(context);
+            context = context || {};
+        }
+        data = handlebars.createFrame(options.data || {});
+        data = {
+            root: data.root,
+            _parent: data._parent
+        };
+        context = {
+            of: count
+        };
         for (i = 0; i < count; i++) {
-            if (options.data) {
-                data = Handlebars.createFrame(options.data || {});
-                data.index = i;
-                data.first = (i === 0);
-                data.last = (i === (count - 1));
-                data.odd = ((i % 2) ? false : true); // pair
-                data.even = ((i % 2) ? true : false); // impair
-            }
-            context = {
-                of: count,
-                count: (i + 1),
-                class: (data.odd ? 'odd' : 'even') + (data.last ? ' last' : '') + (data.first ? ' first' : '')
-            };
+            data.index = i;
+            data.first = (i === 0);
+            data.last = (i === (count - 1));
+            // context
+            context.count = (i + 1);
+            context.even = (i % 2) > 0; // pair
+            context.odd = !context.odd; // impair
+            context.class = (context.odd ? 'odd' : 'even') + (data.last ? ' last' : '') + (data.first ? ' first' : '');
+            // output
             output += options.fn(context, {
                 data: data
             });

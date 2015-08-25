@@ -1,15 +1,4 @@
-/**
- * Grunt Mustacher
- * https://github.com/malas34/grunt-mustacher
- *
- * Copyright (c) 2014 Matthieu Lassalvy
- * Licensed under the MIT license.
- *
- * HANDLEBARS
- * @see http://handlebarsjs.com/
- *
- */
-/*jslint indent: 4 */
+/*jslint indent: 4, nomen: true */
 /*global module, require */
 (function () {
 
@@ -27,6 +16,11 @@
         Handlebars.registerHelper('and', this.render.bind(this));
     };
 
+    /**
+     *
+     * @TODO use context params
+     *
+     */
     ConditionsHelper.prototype.render = function (options) {
         var result, data,
             args = mustacher.hasOptions(arguments);
@@ -35,6 +29,10 @@
         }
         options = args[args.length - 1];
         data = Handlebars.createFrame(options.data || {});
+        data = {
+            root: data.root,
+            _parent: data._parent
+        };
         args = args.slice(0, args.length - 1);
         result = options.name === 'or' ? 1 : args.length;
         if (compact(args).length >= result) {
@@ -46,7 +44,6 @@
                 data: data
             });
         }
-
     };
 
     module.exports = ConditionsHelper;

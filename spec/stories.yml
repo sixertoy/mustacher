@@ -10,3 +10,16 @@ src/mustacher.js:
     - return defaults
     - return concatened context
     - return concatened context + defaults override
+src/helpers/conditions.js:
+  register:
+    - handlebars registerHelper called twice
+  render:
+    - throws missing arguments
+    - not throws missing arguments
+    - handlebars createFrame called
+  or:
+    - return true
+    - return false
+  and:
+    - return true
+    - return false

@@ -187,12 +187,21 @@
                 });
                 expect(result).to.equal('');
             });
-            it('should returns repeated string', function () {
-                var str = '<html><head><title>{{title}}</title></head><body><ul>{{#repeat 3}}<li>Hello {{@index}}{{../content}}</li>{{/repeat}}</ul></body></html>';
+            it('should returns repeated string content is a local variable', function () {
+                var str = '<html><head><title>{{title}}</title></head><body><ul>{{#repeat 3}}<li>Hello {{@index}}{{content}}</li>{{/repeat}}</ul></body></html>';
                 result = mustacher(str, {
+                    content: 'hello',
                     title: 'this is a title'
                 });
                 expect(result).to.equal('<html><head><title>this is a title</title></head><body><ul><li>Hello 0</li><li>Hello 1</li><li>Hello 2</li></ul></body></html>');
+            });
+            it('should returns repeated string content is a global variable', function () {
+                var str = '<html><head><title>{{title}}</title></head><body><ul>{{#repeat 3}}<li>Hello {{@index}}{{@root.content}}</li>{{/repeat}}</ul></body></html>';
+                result = mustacher(str, {
+                    content: ' hello',
+                    title: 'this is a title'
+                });
+                expect(result).to.equal('<html><head><title>this is a title</title></head><body><ul><li>Hello 0 hello</li><li>Hello 1 hello</li><li>Hello 2 hello</li></ul></body></html>');
             });
         });
 
