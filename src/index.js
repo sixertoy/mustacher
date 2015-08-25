@@ -7,19 +7,16 @@
     var // variables
         mustacher,
         _isRegistered = false,
-        _defaults = { // handlebars config
-            root: {
-                cwd: process.cwd(),
-                delimiter: {
-                    ldim: '{{',
-                    rdim: '}}'
-                },
-                partials: {
-                    depth: 2,
-                    ext: '.hbs',
-                    src: 'partials/'
-                },
-                context: {}
+        _options = {
+            cwd: process.cwd(),
+            delimiter: {
+                ldim: '{{',
+                rdim: '}}'
+            },
+            partials: {
+                depth: 2,
+                ext: '.hbs',
+                src: 'partials/'
             }
         },
         _helpers = [
@@ -42,7 +39,7 @@
         isstring = require('lodash.isstring'),
         isplainobject = require('lodash.isplainobject');
 
-    mustacher = function (str, context) {
+    mustacher = function (str, context, options) {
         var template;
         if (arguments.length < 1 || !isstring(str) || isempty(str)) {
             throw new Error('missing arguments');
@@ -50,12 +47,18 @@
         if (!_isRegistered) {
             mustacher.register();
         }
-        context = context || {};
+        
+        console.log(_options);
+        
+        assign(_options, options);        
+        console.log(_options);
+        
+        assign(_options, context);        
+        console.log(_options);
+        
         try {
-            template = handlebars.compile(str, {
-                trackIds: false
-            });
-            return template(context).trim();
+            template = handlebars.compile(str);
+            return template(_options).trim();
         } catch (e) {
             throw new Error('Mustacher error');
         }

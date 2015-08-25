@@ -36,6 +36,14 @@ npm install mustacher --save
 
 ## Examples
 
+```js
+var mutacher = require('mustacher'),
+    context = {},
+    options = {},
+    str = fs.readFileSync('path/to/file', {encoding: 'utf8'});
+mutacher(str, context, options);
+```
+
 ### inline
 
 <a name="include"><a>
