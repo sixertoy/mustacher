@@ -19,7 +19,7 @@
         path = require('path'),
         exists = require('path-exists'),
         Handlebars = require('handlebars'),
-        mustacher = require('./../index'),
+        mustacher = require('./../mustacher'),
         isstring = require('lodash.isstring');
     IncludeHelper = function () {};
     IncludeHelper.prototype.register = function () {

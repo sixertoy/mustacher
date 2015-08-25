@@ -6,10 +6,11 @@
     var result,
         cwd = process.cwd(),
         path = require('path'),
-        noop = require('noop'),
         sinon = require('sinon'),
+        noop = require('noop').noop,
         expect = require('chai').expect,
-        mustacher = require(path.join(cwd, 'src/index.js')),
+        handlebars = require('handlebars'),
+        mustacher = require(path.join(cwd, 'src/mustacher.js')),
         // helpers
         conditions = require(path.join(cwd, 'src/helpers/conditions.js')),
         equal = require(path.join(cwd, 'src/helpers/equal.js')),
@@ -20,7 +21,19 @@
         // lorem = require(path.join(cwd, 'src/helpers/lorem.js')),
         random = require(path.join(cwd, 'src/helpers/random.js')),
         repeat = require(path.join(cwd, 'src/helpers/repeat.js')),
-        timestamp = require(path.join(cwd, 'src/helpers/timestamp.js'));
+        timestamp = require(path.join(cwd, 'src/helpers/timestamp.js')),
+        defaults = {
+            cwd: process.cwd(),
+            delimiter: {
+                ldim: '{{',
+                rdim: '}}'
+            },
+            partials: {
+                depth: 2,
+                ext: '.hbs',
+                src: 'partials/'
+            }
+        };
 
     function stubArguments() {
         return arguments;
@@ -29,44 +42,35 @@
     describe('mustacher', function () {
 
         beforeEach(function () {});
+
         afterEach(function () {});
 
-        describe('render', function () {
-            it('throw if no argument', function () {
-                expect(function () {
-                    mustacher();
-                }).to.throw('missing arguments');
+        describe('options', function () {
+            it('return empty defaults', function () {
+                expect(mustacher.options()).to.deep.equal({});
             });
-            it('should return helloworld', function () {
-                result = mustacher('hello world!');
-                expect(result).to.equal('hello world!');
+            it('return defaults', function () {
+                mustacher('a string');
+                expect(mustacher.options()).to.deep.equal(defaults);
             });
-            it('should return \'\' no context', function () {
-                result = mustacher('{{content}}');
-                expect(result).to.equal('');
-            });
-            it('should return \'\' empty context', function () {
-                result = mustacher('{{content}}', {});
-                expect(result).to.equal('');
-            });
-            it('should return helloworld', function () {
-                result = mustacher('{{content}}', {
-                    content: 'hello world!'
+            it('return concatened context', function () {
+                defaults.context = 'a global context variable';
+                mustacher('a string', {
+                    context: defaults.context
                 });
-                expect(result).to.equal('hello world!');
+                expect(mustacher.options()).to.deep.equal(defaults);
             });
-            it('should return <h1>helloworld</h1>', function () {
-                result = mustacher('<h1>{{content}}</h1>', {
-                    content: 'hello world!'
+            it('return concatened context + defaults override', function () {
+                defaults.partials.ext = '.tpl';
+                defaults.context = 'a global context variable';
+                mustacher('a string', {
+                    context: defaults.context
+                }, {
+                    partials: {
+                        ext: defaults.partials.ext
+                    }
                 });
-                expect(result).to.equal('<h1>hello world!</h1>');
-            });
-            it('should returns repeated string', function () {
-                var str = '<html><head><title>{{title}}</title></head><body><ul>{{#repeat 3}}<li>Hello {{@index}}</li>{{/repeat}}</ul></body></html>';
-                result = mustacher(str, {
-                    title: 'this is a title'
-                });
-                expect(result).to.equal('<html><head><title>this is a title</title></head><body><ul><li>Hello 0</li><li>Hello 1</li><li>Hello 2</li></ul></body></html>');
+                expect(mustacher.options()).to.deep.equal(defaults);
             });
         });
 
@@ -132,6 +136,63 @@
                     expect(spy.callCount).to.equal(1);
                     spy.restore();
                 });
+            });
+        });
+
+        describe('render', function () {
+            it('throw if no argument', function () {
+                expect(function () {
+                    mustacher();
+                }).to.throw('missing arguments');
+            });
+            it('should return helloworld', function () {
+                result = mustacher('hello world!');
+                expect(result).to.equal('hello world!');
+            });
+            it('should return \'\' no context', function () {
+                result = mustacher('{{content}}');
+                expect(result).to.equal('');
+            });
+            it('should return \'\' empty context', function () {
+                result = mustacher('{{content}}', {});
+                expect(result).to.equal('');
+            });
+            it('should return helloworld content', function () {
+                result = mustacher('{{content}}', {
+                    content: 'hello world!'
+                });
+                expect(result).to.equal('hello world!');
+            });
+            it('should return helloworld @root.content', function () {
+                result = mustacher('{{@root.content}}', {
+                    content: 'hello world!'
+                });
+                expect(result).to.equal('hello world!');
+            });
+            it('should return helloworld if/content', function () {
+                result = mustacher('{{#if true}}{{content}}{{/if}}', {
+                    content: 'hello world!'
+                });
+                expect(result).to.equal('hello world!');
+            });
+            it('should return helloworld if/../content', function () {
+                result = mustacher('{{#if true}}{{../content}}{{/if}}', {
+                    content: 'hello world!'
+                });
+                expect(result).to.equal('hello world!');
+            });
+            it('should return helloworld if/../../content', function () {
+                result = mustacher('{{#if true}}{{../../content}}{{/if}}', {
+                    content: 'hello world!'
+                });
+                expect(result).to.equal('');
+            });
+            it('should returns repeated string', function () {
+                var str = '<html><head><title>{{title}}</title></head><body><ul>{{#repeat 3}}<li>Hello {{@index}}{{../content}}</li>{{/repeat}}</ul></body></html>';
+                result = mustacher(str, {
+                    title: 'this is a title'
+                });
+                expect(result).to.equal('<html><head><title>this is a title</title></head><body><ul><li>Hello 0</li><li>Hello 1</li><li>Hello 2</li></ul></body></html>');
             });
         });
 

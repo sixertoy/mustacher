@@ -17,7 +17,7 @@
     var RepeatHelper,
         isnan = require('lodash.isnan'),
         Handlebars = require('handlebars'),
-        mustacher = require('./../index');
+        mustacher = require('./../mustacher');
 
     RepeatHelper = function () {};
 

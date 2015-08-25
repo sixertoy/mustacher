@@ -18,7 +18,7 @@
     var LoremHelper,
         lodash = require('lodash'),
         lorem = require('lorem-ipsum'),
-        Utils = require('./../mustacher-utils'),
+        Utils = require('./../mustacher'),
         Handlebars = require('handlebars'),
         defaults = {
             count: 1, // Number of words, sentences, or paragraphs to generate.

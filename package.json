@@ -71,6 +71,7 @@
     "lodash.isnumber": "^3.0.1",
     "lodash.isplainobject": "^3.2.0",
     "lodash.isstring": "^3.0.1",
+    "lodash.merge": "^3.3.2",
     "lodash.random": "^3.0.1",
     "lodash.toarray": "^3.0.2",
     "path-exists": "^1.0.0"

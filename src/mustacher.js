@@ -6,8 +6,9 @@
 
     var // variables
         mustacher,
+        _options = {},
         _isRegistered = false,
-        _options = {
+        _defaults = {
             cwd: process.cwd(),
             delimiter: {
                 ldim: '{{',
@@ -32,7 +33,7 @@
         ],
         // requires
         path = require('path'),
-        assign = require('lodash.assign'),
+        merge = require('lodash.merge'),
         handlebars = require('handlebars'),
         isempty = require('lodash.isempty'),
         toarray = require('lodash.toarray'),
@@ -40,25 +41,19 @@
         isplainobject = require('lodash.isplainobject');
 
     mustacher = function (str, context, options) {
-        var template;
+        var data, template;
         if (arguments.length < 1 || !isstring(str) || isempty(str)) {
             throw new Error('missing arguments');
         }
         if (!_isRegistered) {
             mustacher.register();
         }
-        
-        console.log(_options);
-        
-        assign(_options, options);        
-        console.log(_options);
-        
-        assign(_options, context);        
-        console.log(_options);
-        
+        context = context || {};
+        _options = merge({}, _defaults);
+        merge(_options, context, options || {});
         try {
             template = handlebars.compile(str);
-            return template(_options).trim();
+            return template(context, {data: data});
         } catch (e) {
             throw new Error('Mustacher error');
         }
@@ -72,6 +67,10 @@
             helper.register();
         });
         _isRegistered = true;
+    };
+
+    mustacher.options = function () {
+        return _options;
     };
 
     /**
