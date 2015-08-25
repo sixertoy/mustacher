@@ -1,15 +1,4 @@
-/**
- * Grunt Mustacher
- * https://github.com/malas34/grunt-mustacher
- *
- * Copyright (c) 2014 Matthieu Lassalvy
- * Licensed under the MIT license.
- *
- * HANDLEBARS
- * @see http://handlebarsjs.com/
- *
- */
-/*jslint indent: 4 */
+/*jslint indent: 4, nomen: true */
 /*global module, require */
 (function () {
 
@@ -26,14 +15,25 @@
         Handlebars.registerHelper('equal', this.render.bind(this));
     };
 
-    EqualHelper.prototype.render = function (lvalue, rvalue, options) {
+    EqualHelper.prototype.render = function (lvalue, rvalue, context, options) {
         var data,
-            context = {},
             args = mustacher.hasOptions(arguments);
         if (!args || args.length < 3) {
             throw new Error('missing arguments');
         }
+        if (arguments.length < 4) {
+            options = context;
+            context = {};
+        } else {
+            context = JSON.parse(context);
+            context = context || {};
+        }
         data = Handlebars.createFrame(options.data || {});
+        data = {
+            root: data.root,
+            _parent: data._parent,
+            isequal: (lvalue === rvalue)
+        };
         if (!isequal(lvalue, rvalue)) {
             return options.inverse(context, { data: data });
         } else {
