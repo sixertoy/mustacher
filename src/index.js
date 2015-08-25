@@ -42,7 +42,7 @@
         isstring = require('lodash.isstring'),
         isplainobject = require('lodash.isplainobject');
 
-    mustacher = function (str, context, data) {
+    mustacher = function (str, context) {
         var template;
         if (arguments.length < 1 || !isstring(str) || isempty(str)) {
             throw new Error('missing arguments');
@@ -51,17 +51,12 @@
             mustacher.register();
         }
         context = context || {};
-        _defaults.root.context = context;
-        data = data ? assign(_defaults, data) : _defaults;
         try {
             template = handlebars.compile(str, {
                 trackIds: false
             });
-            return template(context, {
-                data: data
-            }).trim();
+            return template(context).trim();
         } catch (e) {
-            console.log(e.stack);
             throw new Error('Mustacher error');
         }
     };

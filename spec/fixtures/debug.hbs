@@ -1,0 +1,15 @@
+{{#each list}}
+    ok: {{@index}}
+    not: {{index}} | {{./index}} | {{@root.index}}
+    {{#each @root.list}}
+        ok: {{@index}}/{{@../index}}
+        {{#equal true true '{"super": "ya"}'}}
+            not: {{index}} | {{../index}} | {{@index}} | {{@super}}
+            ok: {{@../index}}/{{@../../index}} | {{@isequal}} | {{super}}
+            {{$include 'include'}}
+        {{else}}
+            no
+        {{/equal}}
+    {{/each}}
+
+{{/each}}
