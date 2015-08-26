@@ -55,7 +55,7 @@
             template = handlebars.compile(str);
             return template(context, {data: data});
         } catch (e) {
-            throw new Error('Mustacher error');
+            throw new Error('Handlebars compile error');
         }
     };
 

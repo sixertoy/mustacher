@@ -140,6 +140,15 @@
         });
 
         describe('render', function () {
+            it('throw a mustacher error at handlebar compile', function () {
+                sinon.stub(handlebars, 'compile', function(){
+                    throw new Error('Handlebars compile error');
+                });
+                expect(function () {
+                    mustacher('{{content}}');
+                }).to.throw('Handlebars compile error');
+                handlebars.compile.restore();
+            });
             it('throw if no argument', function () {
                 expect(function () {
                     mustacher();
