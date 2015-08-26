@@ -6,7 +6,7 @@
     var //variables
         helper, result,
         cwd = process.cwd(),
-        handlebarsOptions = {
+        defaults = {
             inverse: function (args) {
                 return false;
             },
@@ -16,7 +16,7 @@
             name: 'equal',
             data: {
                 root: {
-                    cwd: '',
+                    cwd: process.cwd(),
                     partials: {
                         src: '',
                         ext: ''
@@ -61,28 +61,36 @@
                     helper.render('file', false);
                 }).to.throw('missing arguments');
                 expect(function () {
-                    helper.render(true, handlebarsOptions);
+                    helper.render(true, defaults);
                 }).to.throw('missing arguments');
             });
             it('handlebars createFrame called', function () {
                 sinon.spy(handlebars, 'createFrame');
                 helper.register();
-                helper.render('file', handlebarsOptions);
+                helper.render('file', defaults);
                 expect(handlebars.createFrame.callCount).to.equal(1);
                 handlebars.createFrame.restore();
             });
             it('call mustacher hasOptions once', function () {
                 sinon.spy(mustacher, 'hasOptions');
                 helper.register();
-                helper.render('path/to/file', handlebarsOptions);
+                helper.render('path/to/file', defaults);
                 expect(mustacher.hasOptions.callCount).to.equal(1);
                 mustacher.hasOptions.restore();
             });
             it('unable to load template', function () {
                 var p = path.normalize('path/to/file');
                 helper.register();
-                result = helper.render(p, handlebarsOptions);
-                expect(result.toString()).to.equal('<!-- '+p+' -->\nUnable to load file\n<!-- endof '+p+' -->');
+                result = helper.render(p, defaults);
+                expect(result.toString()).to.equal('<!-- ' + p + ' -->\nUnable to load file\n<!-- endof ' + p + ' -->');
+            });
+            it('render file with no context', function () {
+                var p = path.normalize('include_low');
+                defaults.data.root.partials.src = 'spec/fixtures';
+                defaults.data.root.partials.ext = '.hbs';
+                helper.register();
+                result = helper.render(p, defaults);
+                expect(result.toString()).to.equal('include a template file');
             });
         });
     });
