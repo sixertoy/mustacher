@@ -76,6 +76,14 @@
             });
         });
 
+        describe('with context', function () {
+            it('string with context defined', function () {
+                helper.register();
+                result = helper.render('toto', 'toto', '{"prop": "value"}', handlebarsOptions);
+                expect(result).to.equal(true);
+            });
+        });
+
         describe('isequal', function () {
             it('return true', function () {
                 helper.register();
