@@ -18,22 +18,33 @@
         fs = require('fs'),
         path = require('path'),
         exists = require('path-exists'),
-        Handlebars = require('handlebars'),
+        handlebars = require('handlebars'),
         mustacher = require('./../mustacher'),
         isstring = require('lodash.isstring');
     IncludeHelper = function () {};
     IncludeHelper.prototype.register = function () {
-        Handlebars.registerHelper('$include', this.render.bind(this));
+        handlebars.registerHelper('$include', this.render.bind(this));
     };
-    IncludeHelper.prototype.render = function (filepath, options) {
+    IncludeHelper.prototype.render = function (filepath, context, options) {
         var data,
             output = 'Unable to load file',
             args = mustacher.hasOptions(arguments);
         if (!args || args.length < 2 || !isstring(filepath)) {
             throw new Error('missing arguments');
         }
+        if(args.length < 3){
+            options = context;
+            context = {};
+        } else {
+            context = JSON.parse(context);
+            context = context || {};
+        }
         // recuperation des data
-        data = Handlebars.createFrame(options.data || {});
+        data = handlebars.createFrame(options.data || {});
+        data = {
+            root: data.root,
+            _parent: data._parent
+        };
         // transformation du filepath en absolut
         filepath = path.join(data.root.cwd, data.root.partials.src, filepath);
         filepath += data.root.partials.ext;
@@ -45,12 +56,12 @@
             output = fs.readFileSync(filepath, {
                 encoding: 'utf8'
             }).trim();
-            output = Handlebars.compile(output);
-            output = output({}, {
+            output = handlebars.compile(output);
+            output = output(context, {
                 data: data
             });
         }
-        return new Handlebars.SafeString(output.trim());
+        return new handlebars.SafeString(output.trim());
     };
     module.exports = IncludeHelper;
 }());

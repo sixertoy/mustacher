@@ -4,7 +4,7 @@
 (function () {
     'use strict';
     var //variables
-        helper, result,
+        helper, result, repeat,
         cwd = process.cwd(),
         defaults = {
             inverse: function (args) {
@@ -21,9 +21,9 @@
                         src: '',
                         ext: ''
                     }
-                }
-            },
-            _parent: {}
+                },
+                _parent: {}
+            }
         },
         // requires
         path = require('path'),
@@ -31,11 +31,13 @@
         expect = require('chai').expect,
         handlebars = require('handlebars'),
         mustacher = require(path.join(cwd, 'src/mustacher.js')),
+        Repeat = require(path.join(cwd, 'src/helpers/repeat.js')),
         Include = require(path.join(cwd, 'src/helpers/include.js'));
 
     describe('equal', function () {
 
         beforeEach(function () {
+            repeat = new Repeat();
             helper = new Include();
         });
         afterEach(function () {});
@@ -91,6 +93,15 @@
                 helper.register();
                 result = helper.render(p, defaults);
                 expect(result.toString()).to.equal('include a template file');
+            });
+            it('render file with context', function () {
+                var p = path.normalize('include_context');
+                defaults.data.root.partials.src = 'spec/fixtures';
+                defaults.data.root.partials.ext = '.hbs';
+                repeat.register();
+                helper.register();
+                result = helper.render(p, '{"variable":"private"}', defaults);
+                expect(result.toString()).to.equal('include a template file with a private variable');
             });
         });
     });
