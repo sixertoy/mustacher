@@ -42,8 +42,11 @@
 
     mustacher = function (str, context, options) {
         var template;
-        if (arguments.length < 1 || !isstring(str) || isempty(str)) {
+        if (arguments.length < 1 || !isstring(str)) {
             throw new Error('missing arguments');
+        }
+        if (isempty(str)) {
+            return str;
         }
         if (!_isRegistered) {
             mustacher.register();
