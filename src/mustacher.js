@@ -41,7 +41,7 @@
         isplainobject = require('lodash.isplainobject');
 
     mustacher = function (str, context, options) {
-        var data, template;
+        var template;
         if (arguments.length < 1 || !isstring(str) || isempty(str)) {
             throw new Error('missing arguments');
         }
@@ -49,12 +49,16 @@
             mustacher.register();
         }
         context = context || {};
-        _options = merge({}, _defaults);
-        merge(_options, context, options || {});
+        _options = merge(_defaults, options || {}, context);
         try {
             template = handlebars.compile(str);
-            return template(context, {data: data});
+            return template(context, {
+                data: {
+                    root: _options
+                }
+            });
         } catch (e) {
+            console.log(e);
             throw new Error('Handlebars compile error');
         }
     };
