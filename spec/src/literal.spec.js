@@ -8,7 +8,9 @@
         cwd = process.cwd(),
         defaults = {
             name: '$rdim',
-            fn: function () {},
+            fn: function () {
+                return '';
+            },
             data: {
                 root: {
                     delimiter: {
