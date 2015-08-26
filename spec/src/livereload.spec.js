@@ -16,7 +16,7 @@
         sinon = require('sinon'),
         expect = require('chai').expect,
         handlebars = require('handlebars'),
-        mustacher = require(path.join(cwd, 'src/index.js')),
+        mustacher = require(path.join(cwd, 'src/mustacher.js')),
         Livereload = require(path.join(cwd, 'src/helpers/livereload.js'));
     describe('livereload', function () {
         beforeEach(function () {
