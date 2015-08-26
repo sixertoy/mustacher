@@ -38,10 +38,24 @@ npm install mustacher --save
 
 ```js
 var mutacher = require('mustacher'),
-    context = {},
-    options = {},
+    // variables at root level touched by any helper
+    context = {
+        'private': 'as @root.private'
+    },
+    // defaults options
+    options = {
+        cwd: process.cwd(),
+        delimiter: {
+            ldim: '{{',
+            rdim: '}}'
+        },
+        partials: {
+            ext: '.hbs',
+            src: 'partials'
+        }
+    },
     str = fs.readFileSync('path/to/file', {encoding: 'utf8'});
-mutacher(str, context, options);
+mutacher(str, [context], [options]);
 ```
 
 ### inline
@@ -102,7 +116,7 @@ mutacher(str, context, options);
 ```html
 <span>
     <b>{{$random 1 31}}</b>
-    <strong>>Juanary</strong>
+    <strong>Juanary</strong>
     <em>1970</em>
 </span>
 ```
@@ -152,7 +166,7 @@ toto{{$rdim}}
 ### #and
 
 ```html
-{{#and true false...}}
+{{#and true false ...}}
 <span>fail</span>
 {{else}}
 <span>success</span>
@@ -205,6 +219,6 @@ toto{{$rdim}}
 [travis-url]: https://travis-ci.org/sixertoy/mustacher
 [travis-img]: http://img.shields.io/travis/sixertoy/mustacher.svg?style=flat-square
 
-[npm-url]: https://npmjs.org/package/generator-gruntproject
+[npm-url]: https://npmjs.org/package/mustacher
 [npm-version-img]: http://img.shields.io/npm/v/mustacher.svg?style=flat-square
 [npm-downloads-img]: http://img.shields.io/npm/dm/mustacher.svg?style=flat-square
