@@ -26,7 +26,7 @@
         Handlebars.registerHelper('$include', this.render.bind(this));
     };
     IncludeHelper.prototype.render = function (filepath, options) {
-        var data, root, content,
+        var data,
             output = 'Unable to load file',
             args = mustacher.hasOptions(arguments);
         if (!args || args.length < 2 || !isstring(filepath)) {
