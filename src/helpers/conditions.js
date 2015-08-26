@@ -5,15 +5,15 @@
     'use strict';
 
     var ConditionsHelper,
-        Handlebars = require('handlebars'),
+        handlebars = require('handlebars'),
         compact = require('lodash.compact'),
         mustacher = require('./../mustacher');
 
     ConditionsHelper = function () {};
 
     ConditionsHelper.prototype.register = function () {
-        Handlebars.registerHelper('or', this.render.bind(this));
-        Handlebars.registerHelper('and', this.render.bind(this));
+        handlebars.registerHelper('or', this.render.bind(this));
+        handlebars.registerHelper('and', this.render.bind(this));
     };
 
     /**
@@ -28,7 +28,7 @@
             throw new Error('missing arguments');
         }
         options = args[args.length - 1];
-        data = Handlebars.createFrame(options.data || {});
+        data = handlebars.createFrame(options.data || {});
         data = {
             root: data.root,
             _parent: data._parent

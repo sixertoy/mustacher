@@ -24,7 +24,7 @@
     LiteralHelper.prototype.register = function () {
         Handlebars.registerHelper('$ldim', this.render.bind(this));
         Handlebars.registerHelper('$rdim', this.render.bind(this));
-        Handlebars.registerHelper('$raw', this.render.bind(this));
+        Handlebars.registerHelper('raw', this.render.bind(this));
     };
 
     LiteralHelper.prototype.render = function (options) {
