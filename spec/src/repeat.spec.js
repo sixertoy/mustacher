@@ -6,7 +6,10 @@
     var //variables
         result, helper,
         defaults = {
-            name: '$random'
+            root: {},
+            _parent: {},
+            name: '$repeat',
+            fn: function(){}
         },
         cwd = process.cwd(),
         // requires
@@ -30,12 +33,6 @@
             });
         });
         describe('render', function () {
-            it('call mustacher hasOptions once', function () {
-                sinon.spy(mustacher, 'hasOptions');
-                helper.render(defaults);
-                expect(mustacher.hasOptions.callCount).to.equal(1);
-                mustacher.hasOptions.restore();
-            });
             it('throw no arguments', function () {
                 expect(function () {
                     helper.render();
@@ -52,6 +49,12 @@
                         prop: 'prop'
                     }, defaults);
                 }).to.throw('arguments not valid');
+            });
+            it('call mustacher hasOptions once', function () {
+                sinon.spy(mustacher, 'hasOptions');
+                helper.render(3, defaults);
+                expect(mustacher.hasOptions.callCount).to.equal(1);
+                mustacher.hasOptions.restore();
             });
         });
     });
