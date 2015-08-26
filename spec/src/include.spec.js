@@ -78,13 +78,11 @@
                 expect(mustacher.hasOptions.callCount).to.equal(1);
                 mustacher.hasOptions.restore();
             });
-        });
-
-        describe('with context', function () {
-            xit('string with context defined', function () {
+            it('unable to load template', function () {
+                var p = path.normalize('path/to/file');
                 helper.register();
-                result = helper.render('toto', 'toto', '{"prop": "value"}', handlebarsOptions);
-                expect(result).to.equal(true);
+                result = helper.render(p, handlebarsOptions);
+                expect(result.toString()).to.equal('<!-- '+p+' -->\nUnable to load file\n<!-- endof '+p+' -->');
             });
         });
     });
