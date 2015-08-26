@@ -34,6 +34,10 @@
             throw new Error('missing arguments');
         }
         data = Handlebars.createFrame(options.data || {});
+        data = {
+            root: data.root,
+            _parent: data._parent,
+        };
         switch (options.name) {
         case '$ldim':
             result = data.root.delimiter.ldim || '}}';
