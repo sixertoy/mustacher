@@ -28,16 +28,12 @@
     };
 
     LiteralHelper.prototype.render = function (options) {
-
         var data, result,
             args = mustacher.hasOptions(arguments);
-
         if (!args || args.length < 1) {
             throw new Error('missing arguments');
         }
-
         data = Handlebars.createFrame(options.data || {});
-
         switch (options.name) {
         case '$ldim':
             result = data.root.delimiter.ldim || '}}';
@@ -49,9 +45,7 @@
             result = options.fn();
             break;
         }
-
         return result;
-
     };
 
     module.exports = LiteralHelper;

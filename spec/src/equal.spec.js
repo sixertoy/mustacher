@@ -14,7 +14,7 @@
                 return true;
             },
             name: 'equal',
-            data: {},
+            data: {}
         },
         // requires
         path = require('path'),
@@ -67,7 +67,7 @@
                 expect(handlebars.createFrame.callCount).to.equal(1);
                 handlebars.createFrame.restore();
             });
-            it('call mustacher hasOptions once', function(){
+            it('call mustacher hasOptions once', function () {
                 sinon.spy(mustacher, 'hasOptions');
                 helper.register();
                 helper.render(true, false, handlebarsOptions);
