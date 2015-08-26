@@ -98,5 +98,12 @@
                 expect(result).to.equal('*]');
             });
         });
+        describe('raw', function () {
+            it('returns exact content', function () {
+                defaults.name = 'raw';
+                result = helper.render(defaults);
+                expect(result).to.equal('');
+            });
+        });
     });
 }());
