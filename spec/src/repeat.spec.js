@@ -9,7 +9,7 @@
             root: {},
             _parent: {},
             name: '$repeat',
-            fn: function(){}
+            fn: function () {}
         },
         cwd = process.cwd(),
         // requires
@@ -55,6 +55,13 @@
                 helper.render(3, defaults);
                 expect(mustacher.hasOptions.callCount).to.equal(1);
                 mustacher.hasOptions.restore();
+            });
+            it('use context JSON.parse called once', function () {
+                sinon.spy(JSON, 'parse');
+                helper.render(3, '{"prop": "value"}', defaults);
+                expect(JSON.parse.callCount).to.equal(1);
+                expect(JSON.parse.calledWith('{"prop": "value"}')).to.equal(true);
+                JSON.parse.restore();
             });
         });
     });
