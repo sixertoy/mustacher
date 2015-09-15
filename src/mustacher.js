@@ -26,6 +26,7 @@
             'timestamp',
             'include',
             'literal',
+            'imports',
             'repeat',
             'random',
             'image',
