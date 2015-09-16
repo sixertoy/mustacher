@@ -34,10 +34,10 @@
         }
         switch (options.name) {
         case '$js':
-            result = '<script type="text/javascript" src="' + file + '.min.js"></script>';
+            result = '<script type="text/javascript" src="' + file + '.js"></script>';
             break;
         case '$css':
-            result = '<link rel="stylesheet" type="text/css" href="' + file + '.min.css" />';
+            result = '<link rel="stylesheet" type="text/css" href="' + file + '.css" />';
             break;
         }
         return new Handlebars.SafeString(result);
