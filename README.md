@@ -26,6 +26,8 @@ npm install mustacher --save
 * [$random](#random)
 * [$ldim](#literals)
 * [$rdim](#literals)
+* [$css](#imports)
+* [$js](#imports)
 
 ###### blocks
 
@@ -138,6 +140,20 @@ mutacher(str, [context], [options]);
 ```html
 toto{{$rdim}}
 {{$ldim}}toto{{$rdim}}
+```
+
+#### $css
+```html
+{{$css 'path/to/file'}}
+{{$css 'path/to/file.min'}}
+{{$css 'path/to/file.min' '{"media":"print,projection,screen"}'}}
+```
+
+#### $js
+```html
+{{$js 'path/to/file'}}
+{{$js 'path/to/file.min'}}
+{{$js 'path/to/file.min' '{"data-main":"main.js"}'}}
 ```
 
 ### blocks
