@@ -26,19 +26,36 @@
         Handlebars.registerHelper('$css', this.render.bind(this));
     };
 
-    ImportsHelper.prototype.render = function (file, options) {
-        var data, result,
+    ImportsHelper.prototype.render = function (file, metas, options) {
+        var data, result, parsed, k,
             args = mustacher.hasOptions(arguments);
         if (!args || args.length < 2) {
             throw new Error('missing arguments');
         }
+        if (args.length < 3) {
+            options = metas;
+            metas = '';
+        }
+        if (metas !== '') {
+            try {
+                parsed = JSON.parse(metas);
+                metas = '';
+                for (k in parsed) {
+                    if (parsed.hasOwnProperty(k)) {
+                        metas = k + '="' + parsed[k] + '"';
+                    }
+                }
+            } catch (e) {
+                throw new Error('unable to parse metas');
+            }
+        }
         switch (options.name) {
-        case '$js':
-            result = '<script type="text/javascript" src="' + file + '.js"></script>';
-            break;
-        case '$css':
-            result = '<link rel="stylesheet" type="text/css" href="' + file + '.css" />';
-            break;
+            case '$js':
+                result = '<script type="text/javascript" src="' + file + '.js ' + metas + ' "></script>';
+                break;
+            case '$css':
+                result = '<link rel="stylesheet" type="text/css" href="' + file + '.css" ' + metas + ' />';
+                break;
         }
         return new Handlebars.SafeString(result);
     };
