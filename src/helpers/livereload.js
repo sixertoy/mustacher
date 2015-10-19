@@ -10,7 +10,7 @@
  *
  */
 /*jslint indent: 4 */
-/*global module, require */
+/*global module, require, console */
 (function () {
 
     'use strict';
@@ -35,7 +35,7 @@
         Handlebars.registerHelper('$livereload', this.render.bind(this));
     };
 
-    LivereloadHelper.prototype.render = function (port, options) {
+    LivereloadHelper.prototype.render = function (port, debug, options) {
         var result,
             args = mustacher.hasOptions(arguments);
 
@@ -43,13 +43,20 @@
             throw new Error('missing arguments');
         }
         // parse args
+        /*
         if (args.length < 2) {
             options = port;
             port = defaults.port;
         }
+        if(isboolean(port)){
+            port = defaults.port;
+        }
+        if (!isnumber(port)) {
+            port = parseFloat(port);
+        }
+        */
         // execute
         result = '';
-        port = parseFloat(port);
         result += '<!-- livereload: use only in development environment -->';
         result += '<script src="http://localhost:' + port + '/livereload.js"></script>';
         result += '<!-- endof livereload -->';

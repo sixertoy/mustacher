@@ -7,6 +7,7 @@
   "homepage": "https://github.com/sixertoy/mustacher",
   "scripts": {
     "clear": "rm -rf node_modules",
+    "spec": "sh ./scripts/spec.sh",
     "test": "istanbul cover -x *.spec.js node_modules/mocha/bin/_mocha --report lcovonly -- -R spec ./spec/src/*.spec.js",
     "start": "echo \"Error: no start specified\" && exit 1"
   },

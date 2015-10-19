@@ -49,14 +49,14 @@
                 mustacher.hasOptions.restore();
             });
         });
-        describe('render with defaults', function () {
+        xdescribe('render with defaults', function () {
             it('returns debug true port 1337', function () {
                 expected = ex_head + '<script src="http://localhost:1337/livereload.js"></script>' + ex_foot;
                 result = helper.render(defaults);
                 expect(result.toString()).to.equal(expected);
             });
         });
-        describe('render with debug setted only', function () {
+        xdescribe('render with debug setted only', function () {
             it('returns debug true port 1337', function () {
                 expected = ex_head + '<script src="http://localhost:1337/livereload.js"></script>' + ex_foot;
                 result = helper.render(true, defaults);
@@ -68,14 +68,14 @@
                 expect(result).to.equal(expected);
             });
         });
-        describe('render with port setted only', function () {
+        xdescribe('render with port setted only', function () {
             it('returns debug true port 53739', function () {
                 expected = ex_head + '<script src="http://localhost:53739/livereload.js"></script>' + ex_foot;
                 result = helper.render(53739, defaults);
                 expect(result.toString()).to.equal(expected);
             });
         });
-        describe('render with port setted and debug setted', function () {
+        xdescribe('render with port setted and debug setted', function () {
             it('returns debug true port 53739', function () {
                 expected = ex_head + '<script src="http://localhost:53739/livereload.js"></script>' + ex_foot;
                 result = helper.render(53739, true, defaults);

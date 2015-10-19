@@ -86,6 +86,7 @@ mutacher(str, [context], [options]);
 
 ```html
     <div id="main-footer">
+    ...
     </div>
     {{$js 'path/to/js/file'}}
 </body>
