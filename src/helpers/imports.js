@@ -10,54 +10,101 @@
  *
  */
 /*jslint indent: 4, nomen: true */
-/*global module, require */
+/*global module, require, console */
 (function () {
 
     'use strict';
 
     var ImportsHelper,
+        js_ext = '.js',
+        css_ext = '.css',
+        fs = require('fs'),
         Handlebars = require('handlebars'),
         mustacher = require('./../mustacher');
 
     ImportsHelper = function () {};
 
-    ImportsHelper.prototype.register = function () {
-        Handlebars.registerHelper('$js', this.render.bind(this));
-        Handlebars.registerHelper('$css', this.render.bind(this));
+    /**
+     * 
+     * 
+     * 
+     */
+    ImportsHelper.prototype.getInlineContent = function (file) {
+        try {
+            return fs.readFileSync(file, 'utf8');
+        } catch (e) {
+            console.log('unable to load file ' + file);
+            return '/* unable to load file ' + file + ' */';
+        }
     };
 
-    ImportsHelper.prototype.render = function (file, metas, options) {
-        var data, result, parsed, k,
+    /**
+     * 
+     * 
+     * 
+     */
+    ImportsHelper.prototype.injectJS = function (file, inline) {
+        var result;
+        if (!inline) {
+            result = '<script type="text/javascript" src="' + file + js_ext + '"></script>';
+        } else {
+            result = '<script type="text/javascript">';
+            result += '<![CDATA[';
+            result += this.getInlineContent(file + js_ext);
+            result += ']]>';
+            result += '</script>';
+        }
+        return result;
+    };
+
+    ImportsHelper.prototype.injectCSS = function (file, inline) {
+        var result;
+        if (!inline) {
+            result = '<link rel="stylesheet" type="text/css" href="' + file + css_ext + '" />';
+        } else {
+            result = '<style type="text/css">';
+            result += '/* inline file ' + file + css_ext + '*/';
+            result += this.getInlineContent(file + css_ext);
+            result += '</style>';
+        }
+        return result;
+    };
+
+    /**
+     * 
+     * 
+     * 
+     */
+    ImportsHelper.prototype.render = function (file, inline, options) {
+        var data, result,
             args = mustacher.hasOptions(arguments);
         if (!args || args.length < 2) {
             throw new Error('missing arguments');
         }
         if (args.length < 3) {
-            options = metas;
-            metas = '';
+            options = inline;
+            inline = false;
         }
-        if (metas !== '') {
-            try {
-                parsed = JSON.parse(metas);
-                metas = '';
-                for (k in parsed) {
-                    if (parsed.hasOwnProperty(k)) {
-                        metas = k + '="' + parsed[k] + '"';
-                    }
-                }
-            } catch (e) {
-                throw new Error('unable to parse metas');
-            }
-        }
+        inline = inline || false;
         switch (options.name) {
-            case '$js':
-                result = '<script type="text/javascript" src="' + file + '.js ' + metas + ' "></script>';
-                break;
-            case '$css':
-                result = '<link rel="stylesheet" type="text/css" href="' + file + '.css" ' + metas + ' />';
-                break;
+        case '$js':
+            result = this.injectJS(file, inline);
+            break;
+        case '$css':
+            result = this.injectCSS(file, inline);
+            break;
         }
         return new Handlebars.SafeString(result);
+    };
+
+    /**
+     * 
+     * 
+     * 
+     */
+    ImportsHelper.prototype.register = function () {
+        Handlebars.registerHelper('$js', this.render.bind(this));
+        Handlebars.registerHelper('$css', this.render.bind(this));
     };
 
     module.exports = ImportsHelper;
