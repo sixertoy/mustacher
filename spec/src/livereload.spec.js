@@ -49,14 +49,14 @@
                 mustacher.hasOptions.restore();
             });
         });
-        xdescribe('render with defaults', function () {
+        describe('render with defaults', function () {
             it('returns debug true port 1337', function () {
                 expected = ex_head + '<script src="http://localhost:1337/livereload.js"></script>' + ex_foot;
                 result = helper.render(defaults);
                 expect(result.toString()).to.equal(expected);
             });
         });
-        xdescribe('render with debug setted only', function () {
+        describe('render with debug setted only', function () {
             it('returns debug true port 1337', function () {
                 expected = ex_head + '<script src="http://localhost:1337/livereload.js"></script>' + ex_foot;
                 result = helper.render(true, defaults);
@@ -65,17 +65,17 @@
             it('returns empty string debug false port 1337', function () {
                 expected = '';
                 result = helper.render(false, defaults);
-                expect(result).to.equal(expected);
+                expect(result.toString()).to.equal(expected);
             });
         });
-        xdescribe('render with port setted only', function () {
+        describe('render with port setted only', function () {
             it('returns debug true port 53739', function () {
                 expected = ex_head + '<script src="http://localhost:53739/livereload.js"></script>' + ex_foot;
                 result = helper.render(53739, defaults);
                 expect(result.toString()).to.equal(expected);
             });
         });
-        xdescribe('render with port setted and debug setted', function () {
+        describe('render with port setted and debug setted', function () {
             it('returns debug true port 53739', function () {
                 expected = ex_head + '<script src="http://localhost:53739/livereload.js"></script>' + ex_foot;
                 result = helper.render(53739, true, defaults);
