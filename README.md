@@ -71,6 +71,26 @@ mutacher(str, [context], [options]);
 </div>
 ```
 
+<a name="imports"><a>
+### $css & $js helper
+
+```html
+<head>
+    ...
+    {{$css 'path/to/css/file'}}
+    <!-- include inline -->
+    {{$css '__build__/path/to/css/file' true}}
+    ...
+</head>
+```
+
+```html
+    <div id="main-footer">
+    </div>
+    {{$js 'path/to/js/file'}}
+</body>
+```
+
 <a name="image"><a>
 ### $image (default width: 300)
 
