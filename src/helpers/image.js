@@ -45,7 +45,7 @@
             height = false;
         }
         width = isnumber(width) ? width : 300;
-        result = '//placehold.it/' + width;
+        result = '//placehold./' + width;
 
         data = Handlebars.createFrame(options.data || {});
         valid = data.hasOwnProperty('root');
