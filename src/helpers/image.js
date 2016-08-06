@@ -30,7 +30,8 @@
 
         var result = '',
             context = options || {},
-            args = mustacher.hasOptions(arguments);
+            args = mustacher.hasOptions(arguments),
+            data = Handlebars.createFrame(options.data || {});
 
         if (!args || args.length < 1) {
             throw new Error('missing arguments');
@@ -45,6 +46,9 @@
         }
         width = isnumber(width) ? width : 300;
         result = '//placehold.it/' + width;
+        if (data.root.hasOwnProperty('image') && data.root.image) {
+            result = (data.root.image + width);
+        }
         if (isnumber(height)) {
             result += 'x' + height;
         } else {
