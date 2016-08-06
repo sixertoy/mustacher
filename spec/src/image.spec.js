@@ -12,7 +12,26 @@
         expect = require('chai').expect,
         handlebars = require('handlebars'),
         mustacher = require(path.join(cwd, 'src/mustacher.js')),
-        Image = require(path.join(cwd, 'src/helpers/image.js'));
+        Image = require(path.join(cwd, 'src/helpers/image.js')),
+        defaults = {
+            inverse: function (args) {
+                return false;
+            },
+            fn: function (args) {
+                return true;
+            },
+            name: 'equal',
+            data: {
+                root: {
+                    cwd: process.cwd(),
+                    partials: {
+                        src: '',
+                        ext: ''
+                    }
+                },
+                _parent: {}
+            }
+        };
     describe('image', function () {
         beforeEach(function () {
             helper = new Image();
@@ -83,6 +102,26 @@
                     name: '$image'
                 });
                 expect(result.toString()).to.equal('<img src="//placehold.it/500x220" alt="" title="" />');
+            });
+        });
+        describe('returns an image of 500x220', function () {
+            it('width 500 height 220', function () {
+                helper.register();
+                result = helper.render(500, 220, {
+                    name: '$image',
+                    data: {
+                        root: {
+                            image: '//localhost:9999/',
+                            cwd: process.cwd(),
+                            partials: {
+                                src: '',
+                                ext: ''
+                            }
+                        },
+                        _parent: {}
+                    }
+                });
+                expect(result.toString()).to.equal('<img src="//localhost:9999/500x220" alt="" title="" />');
             });
         });
     });

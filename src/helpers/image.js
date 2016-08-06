@@ -18,7 +18,7 @@
     var ImageHelper,
         Handlebars = require('handlebars'),
         isnumber = require('lodash.isnumber'),
-        mustacher = require('./../mustacher');
+        mustacher = require('./../mustacher'),
 
     ImageHelper = function () {};
 
@@ -28,10 +28,10 @@
 
     ImageHelper.prototype.render = function (width, height, options) {
 
-        var result = '',
+        var data, valid,
+            result = '',
             context = options || {},
-            args = mustacher.hasOptions(arguments),
-            data = Handlebars.createFrame(options.data || {});
+            args = mustacher.hasOptions(arguments);
 
         if (!args || args.length < 1) {
             throw new Error('missing arguments');
@@ -46,7 +46,13 @@
         }
         width = isnumber(width) ? width : 300;
         result = '//placehold.it/' + width;
-        if (data.root.hasOwnProperty('image') && data.root.image) {
+
+        data = Handlebars.createFrame(options.data || {});
+        valid = data.hasOwnProperty('root');
+        valid = valid && data.root;
+        valid = valid && data.root.hasOwnProperty('image');
+        valid = valid && data.root.image;
+        if (valid) {
             result = (data.root.image + width);
         }
         if (isnumber(height)) {
