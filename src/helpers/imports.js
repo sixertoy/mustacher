@@ -19,7 +19,7 @@
         CSS_EXTENSION = '.css',
         fs = require('fs'),
         uglify = require('uglify-js'),
-        CleanCSS = require('uglify-js'),
+        CleanCSS = require('clean-css'),
         Handlebars = require('handlebars'),
         mustacher = require('./../mustacher'),
         isboolean = require('lodash.isboolean');
@@ -41,9 +41,9 @@
             if (iscss) {
                 return new CleanCSS().minify(content).styles;
             }
-            return uglify(content, {
+            return uglify.minify(content, {
                 fromString: true
-            });
+            }).code;
 
         } catch (e) {
             console.log('unable to load file ' + file);
@@ -62,9 +62,9 @@
             result = '<script type="text/javascript" src="' + file + JS_EXTENSION + '"></script>';
         } else {
             result = '<script type="text/javascript">';
-            result += '//<![CDATA[';
+            result += '//<![CDATA[\n';
             result += this.getInlineContent(file + JS_EXTENSION, false, compress);
-            result += '//]]>';
+            result += '\n//]]>';
             result += '</script>';
         }
         return result;
@@ -96,24 +96,28 @@
             options = opts || {},
             args = mustacher.hasOptions(arguments);
 
-        if (!args || args.length < 2) {
+        if (!args || args.length < 4) {
             throw new Error('missing arguments');
         }
 
         useinline = inline;
-        valid = !isboolean(inline) && args.length < 3;
+        /*
+        valid = !isboolean(inline);
         if (!valid) {
             useminify = false;
             useinline = false;
             options = inline || {};
         }
+        */
 
         useminify = minify;
-        valid = !isboolean(minify) && args.length < 4;
+        /*
+        valid = !isboolean(minify);
         if (!valid) {
             useminify = false;
             options = minify || {};
         }
+        */
 
         switch (options.name) {
         case '$js':
