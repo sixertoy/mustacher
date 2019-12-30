@@ -61,7 +61,7 @@
     "LICENCSE-MIT"
   ],
   "dependencies": {
-    "clean-css": "3.4.19",
+    "clean-css": "4.2.1",
     "fs-extra": "0.23.1",
     "handlebars": "3.0.3",
     "lodash.assign": "3.2.0",
