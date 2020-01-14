@@ -1,10 +1,7 @@
 language: node_js
 node_js:
-  - "0.12"
-before_install:
-  - npm install -g istanbul coveralls
+  - '0.12'
 script:
-  - npm test --verbose
+  - npm run test --verbose
 after_success:
   - cat ./coverage/lcov.info | coveralls && rm -rf ./coverage
-
