@@ -15,9 +15,8 @@
   'use strict';
   var IncludeHelper,
     LF = '\n',
-    fs = require('fs'),
     path = require('path'),
-    exists = require('path-exists'),
+    fs = require('fs-extra'),
     handlebars = require('handlebars'),
     mustacher = require('./../mustacher'),
     isstring = require('lodash.isstring');
@@ -49,7 +48,8 @@
     filepath = path.join(data.root.cwd, data.root.partials.src, filepath);
     filepath += data.root.partials.ext;
     // test si le fichier existe
-    if (!exists.sync(filepath)) {
+    var exists = fs.pathExistsSync(filepath);
+    if (!exists) {
       filepath = path.relative(data.root.cwd, filepath);
       output =
         '<!-- ' +
