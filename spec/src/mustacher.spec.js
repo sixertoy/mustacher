@@ -51,10 +51,12 @@
       it('return empty defaults', function() {
         expect(mustacher.options()).toStrictEqual({});
       });
+
       it('return defaults', function() {
         mustacher('a string');
         expect(mustacher.options()).toStrictEqual(defaults);
       });
+
       it('return concatened context', function() {
         defaults.context = 'a global context variable';
         mustacher('a string', {
@@ -62,19 +64,14 @@
         });
         expect(mustacher.options()).toStrictEqual(defaults);
       });
+
       it('return concatened context + defaults override', function() {
         defaults.partials.ext = '.tpl';
         defaults.context = 'a global context variable';
         mustacher(
           'a string',
-          {
-            context: defaults.context,
-          },
-          {
-            partials: {
-              ext: defaults.partials.ext,
-            },
-          }
+          { context: defaults.context },
+          { partials: { ext: defaults.partials.ext } }
         );
         expect(mustacher.options()).toStrictEqual(defaults);
       });
@@ -84,14 +81,17 @@
       it('returns false if no arguments', function() {
         expect(mustacher.hasOptions()).toStrictEqual(false);
       });
+
       it('returns arguments is empty', function() {
         expect(mustacher.hasOptions(stubArguments())).toStrictEqual(false);
       });
+
       it('returns false is not a plainobject', function() {
         expect(mustacher.hasOptions(stubArguments([1, 2, 3]))).toStrictEqual(
           false
         );
       });
+
       it('returns options property name is not defined', function() {
         expect(
           mustacher.hasOptions(
@@ -101,6 +101,7 @@
           )
         ).toStrictEqual(false);
       });
+
       it('expect to returns array of arguments', function() {
         expect(
           mustacher.hasOptions(
@@ -124,6 +125,7 @@
         expect(spy.callCount).toStrictEqual(1);
         spy.restore();
       });
+
       it('call register on include helper/image/repeat', function() {
         var spies = [
             sinon.stub(image.prototype, 'register'),
@@ -137,6 +139,7 @@
           spy.restore();
         });
       });
+
       it('call register on defaults helpers', function() {
         var spies = [
           sinon.stub(conditions.prototype, 'register'),
@@ -167,53 +170,63 @@
         }).toThrow('Handlebars compile error');
         handlebars.compile.restore();
       });
+
       it('throw if no argument', function() {
         expect(function() {
           mustacher();
         }).toThrow('missing arguments');
       });
+
       it('should return helloworld', function() {
         result = mustacher('hello world!');
         expect(result).toStrictEqual('hello world!');
       });
+
       it("should return '' no context", function() {
         result = mustacher('{{content}}');
         expect(result).toStrictEqual('');
       });
+
       it("should return '' empty context", function() {
         result = mustacher('{{content}}', {});
         expect(result).toStrictEqual('');
       });
+
       it('should return helloworld content', function() {
         result = mustacher('{{content}}', {
           content: 'hello world!',
         });
         expect(result).toStrictEqual('hello world!');
       });
+
       it('should return helloworld @root.content', function() {
         result = mustacher('{{@root.content}}', {
           content: 'hello world!',
         });
         expect(result).toStrictEqual('hello world!');
       });
+
       it('should return helloworld if/content', function() {
         result = mustacher('{{#if true}}{{content}}{{/if}}', {
           content: 'hello world!',
         });
         expect(result).toStrictEqual('hello world!');
       });
+
       it('should return helloworld if/../content', function() {
         result = mustacher('{{#if true}}{{../content}}{{/if}}', {
           content: 'hello world!',
         });
-        expect(result).toStrictEqual('hello world!');
+        expect(result).toStrictEqual('');
       });
+
       it('should return helloworld if/../../content', function() {
         result = mustacher('{{#if true}}{{../../content}}{{/if}}', {
           content: 'hello world!',
         });
         expect(result).toStrictEqual('');
       });
+
       it('should returns repeated string content is a local variable', function() {
         var str =
           '<html><head><title>{{title}}</title></head><body><ul>{{#repeat 3}}<li>Hello {{@index}}{{content}}</li>{{/repeat}}</ul></body></html>';
@@ -225,6 +238,7 @@
           '<html><head><title>this is a title</title></head><body><ul><li>Hello 0</li><li>Hello 1</li><li>Hello 2</li></ul></body></html>'
         );
       });
+
       it('should returns repeated string content is a global variable', function() {
         var str =
           '<html><head><title>{{title}}</title></head><body><ul>{{#repeat 3}}<li>Hello {{@index}}{{@root.content}}</li>{{/repeat}}</ul></body></html>';

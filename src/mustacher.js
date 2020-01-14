@@ -55,13 +55,9 @@
     _options = merge(_defaults, options || {}, context);
     try {
       template = handlebars.compile(str);
-      return template(context, {
-        data: {
-          root: _options,
-        },
-      });
+      return template(context, { data: { root: _options } });
     } catch (e) {
-      console.log(e.stack);
+      // console.log(e.stack);
       throw new Error('Handlebars compile error');
     }
   };
