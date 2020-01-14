@@ -8,7 +8,6 @@
     path = require('path'),
     sinon = require('sinon'),
     noop = require('noop').noop,
-    expect = require('chai').expect,
     handlebars = require('handlebars'),
     mustacher = require(path.join(cwd, 'src/mustacher.js')),
     // helpers
@@ -46,18 +45,18 @@
 
     describe('options', function() {
       it('return empty defaults', function() {
-        expect(mustacher.options()).to.deep.equal({});
+        expect(mustacher.options()).toStrictEqual({});
       });
       it('return defaults', function() {
         mustacher('a string');
-        expect(mustacher.options()).to.deep.equal(defaults);
+        expect(mustacher.options()).toStrictEqual(defaults);
       });
       it('return concatened context', function() {
         defaults.context = 'a global context variable';
         mustacher('a string', {
           context: defaults.context,
         });
-        expect(mustacher.options()).to.deep.equal(defaults);
+        expect(mustacher.options()).toStrictEqual(defaults);
       });
       it('return concatened context + defaults override', function() {
         defaults.partials.ext = '.tpl';
@@ -73,19 +72,19 @@
             },
           }
         );
-        expect(mustacher.options()).to.deep.equal(defaults);
+        expect(mustacher.options()).toStrictEqual(defaults);
       });
     });
 
     describe('hasOptions', function() {
       it('returns false if no arguments', function() {
-        expect(mustacher.hasOptions()).to.equal(false);
+        expect(mustacher.hasOptions()).toStrictEqual(false);
       });
       it('returns arguments is empty', function() {
-        expect(mustacher.hasOptions(stubArguments())).to.equal(false);
+        expect(mustacher.hasOptions(stubArguments())).toStrictEqual(false);
       });
       it('returns false is not a plainobject', function() {
-        expect(mustacher.hasOptions(stubArguments([1, 2, 3]))).to.equal(false);
+        expect(mustacher.hasOptions(stubArguments([1, 2, 3]))).toStrictEqual(false);
       });
       it('returns options property name is not defined', function() {
         expect(
@@ -94,7 +93,7 @@
               obj: 'no name prop',
             })
           )
-        ).to.equal(false);
+        ).toStrictEqual(false);
       });
       it('expect to returns array of arguments', function() {
         expect(
@@ -103,7 +102,7 @@
               name: 'name prop',
             })
           )
-        ).to.deep.equal([
+        ).toStrictEqual([
           {
             name: 'name prop',
           },
@@ -116,7 +115,7 @@
         var helpers = ['include'],
           spy = sinon.stub(helpers, 'forEach');
         mustacher.register(helpers);
-        expect(spy.callCount).to.equal(1);
+        expect(spy.callCount).toStrictEqual(1);
         spy.restore();
       });
       it('call register on include helper/image/repeat', function() {
@@ -128,7 +127,7 @@
           helpers = ['include', 'image', 'repeat'];
         mustacher.register(helpers);
         spies.forEach(function(spy) {
-          expect(spy.callCount).to.equal(1);
+          expect(spy.callCount).toStrictEqual(1);
           spy.restore();
         });
       });
@@ -146,7 +145,7 @@
         ];
         mustacher.register();
         spies.forEach(function(spy) {
-          expect(spy.callCount).to.equal(1);
+          expect(spy.callCount).toStrictEqual(1);
           spy.restore();
         });
       });
@@ -159,55 +158,55 @@
         });
         expect(function() {
           mustacher('{{content}}');
-        }).to.throw('Handlebars compile error');
+        }).toThrow('Handlebars compile error');
         handlebars.compile.restore();
       });
       it('throw if no argument', function() {
         expect(function() {
           mustacher();
-        }).to.throw('missing arguments');
+        }).toThrow('missing arguments');
       });
       it('should return helloworld', function() {
         result = mustacher('hello world!');
-        expect(result).to.equal('hello world!');
+        expect(result).toStrictEqual('hello world!');
       });
       it("should return '' no context", function() {
         result = mustacher('{{content}}');
-        expect(result).to.equal('');
+        expect(result).toStrictEqual('');
       });
       it("should return '' empty context", function() {
         result = mustacher('{{content}}', {});
-        expect(result).to.equal('');
+        expect(result).toStrictEqual('');
       });
       it('should return helloworld content', function() {
         result = mustacher('{{content}}', {
           content: 'hello world!',
         });
-        expect(result).to.equal('hello world!');
+        expect(result).toStrictEqual('hello world!');
       });
       it('should return helloworld @root.content', function() {
         result = mustacher('{{@root.content}}', {
           content: 'hello world!',
         });
-        expect(result).to.equal('hello world!');
+        expect(result).toStrictEqual('hello world!');
       });
       it('should return helloworld if/content', function() {
         result = mustacher('{{#if true}}{{content}}{{/if}}', {
           content: 'hello world!',
         });
-        expect(result).to.equal('hello world!');
+        expect(result).toStrictEqual('hello world!');
       });
       it('should return helloworld if/../content', function() {
         result = mustacher('{{#if true}}{{../content}}{{/if}}', {
           content: 'hello world!',
         });
-        expect(result).to.equal('hello world!');
+        expect(result).toStrictEqual('hello world!');
       });
       it('should return helloworld if/../../content', function() {
         result = mustacher('{{#if true}}{{../../content}}{{/if}}', {
           content: 'hello world!',
         });
-        expect(result).to.equal('');
+        expect(result).toStrictEqual('');
       });
       it('should returns repeated string content is a local variable', function() {
         var str =
@@ -216,7 +215,7 @@
           content: 'hello',
           title: 'this is a title',
         });
-        expect(result).to.equal(
+        expect(result).toStrictEqual(
           '<html><head><title>this is a title</title></head><body><ul><li>Hello 0</li><li>Hello 1</li><li>Hello 2</li></ul></body></html>'
         );
       });
@@ -227,7 +226,7 @@
           content: ' hello',
           title: 'this is a title',
         });
-        expect(result).to.equal(
+        expect(result).toStrictEqual(
           '<html><head><title>this is a title</title></head><body><ul><li>Hello 0 hello</li><li>Hello 1 hello</li><li>Hello 2 hello</li></ul></body></html>'
         );
       });

@@ -16,7 +16,6 @@
     // requires
     path = require('path'),
     sinon = require('sinon'),
-    expect = require('chai').expect,
     handlebars = require('handlebars'),
     mustacher = require(path.join(cwd, 'src/mustacher.js')),
     Livereload = require(path.join(cwd, 'src/helpers/livereload.js'));
@@ -29,7 +28,7 @@
       it('call handlebars registerHelper once', function() {
         sinon.spy(handlebars, 'registerHelper');
         helper.register();
-        expect(handlebars.registerHelper.callCount).to.equal(1);
+        expect(handlebars.registerHelper.callCount).toStrictEqual(1);
         handlebars.registerHelper.restore();
       });
     });
@@ -37,17 +36,17 @@
       it('throw no arguments', function() {
         expect(function() {
           helper.render();
-        }).to.throw('missing arguments');
+        }).toThrow('missing arguments');
       });
       it('not throw no arguments', function() {
         expect(function() {
           helper.render(defaults);
-        }).not.to.throw('missing arguments');
+        }).not.toThrow('missing arguments');
       });
       it('call mustacher hasOptions once', function() {
         sinon.spy(mustacher, 'hasOptions');
         helper.render(defaults);
-        expect(mustacher.hasOptions.callCount).to.equal(1);
+        expect(mustacher.hasOptions.callCount).toStrictEqual(1);
         mustacher.hasOptions.restore();
       });
     });
@@ -58,7 +57,7 @@
           '<script src="http://localhost:1337/livereload.js"></script>' +
           ex_foot;
         result = helper.render(defaults);
-        expect(result.toString()).to.equal(expected);
+        expect(result.toString()).toStrictEqual(expected);
       });
     });
     describe('render with debug setted only', function() {
@@ -68,12 +67,12 @@
           '<script src="http://localhost:1337/livereload.js"></script>' +
           ex_foot;
         result = helper.render(true, defaults);
-        expect(result.toString()).to.equal(expected);
+        expect(result.toString()).toStrictEqual(expected);
       });
       it('returns empty string debug false port 1337', function() {
         expected = '';
         result = helper.render(false, defaults);
-        expect(result.toString()).to.equal(expected);
+        expect(result.toString()).toStrictEqual(expected);
       });
     });
     describe('render with port setted only', function() {
@@ -83,7 +82,7 @@
           '<script src="http://localhost:53739/livereload.js"></script>' +
           ex_foot;
         result = helper.render(53739, defaults);
-        expect(result.toString()).to.equal(expected);
+        expect(result.toString()).toStrictEqual(expected);
       });
     });
     describe('render with port setted and debug setted', function() {
@@ -93,12 +92,12 @@
           '<script src="http://localhost:53739/livereload.js"></script>' +
           ex_foot;
         result = helper.render(53739, true, defaults);
-        expect(result.toString()).to.equal(expected);
+        expect(result.toString()).toStrictEqual(expected);
       });
       it('returns empty string debug false port 53739', function() {
         expected = '';
         result = helper.render(53739, false, defaults);
-        expect(result).to.equal(expected);
+        expect(result).toStrictEqual(expected);
       });
     });
   });

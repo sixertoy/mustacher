@@ -10,7 +10,6 @@
     // requires
     path = require('path'),
     sinon = require('sinon'),
-    expect = require('chai').expect,
     handlebars = require('handlebars'),
     mustacher = require(path.join(cwd, 'src/mustacher.js')),
     Image = require(path.join(cwd, 'src/helpers/image.js')),
@@ -42,7 +41,7 @@
       it('handlebars registerHelper called once', function() {
         sinon.spy(handlebars, 'registerHelper');
         helper.register();
-        expect(handlebars.registerHelper.callCount).to.equal(1);
+        expect(handlebars.registerHelper.callCount).toStrictEqual(1);
         handlebars.registerHelper.restore();
       });
     });
@@ -51,7 +50,7 @@
         helper.register();
         expect(function() {
           helper.render();
-        }).to.throw('missing arguments');
+        }).toThrow('missing arguments');
       });
       it('not throws missing arguments', function() {
         helper.register();
@@ -59,7 +58,7 @@
           helper.render({
             name: '$image',
           });
-        }).not.to.throw('missing arguments');
+        }).not.toThrow('missing arguments');
       });
       it('call mustacher hasOptions once', function() {
         sinon.spy(mustacher, 'hasOptions');
@@ -67,7 +66,7 @@
         helper.render({
           name: '$image',
         });
-        expect(mustacher.hasOptions.callCount).to.equal(1);
+        expect(mustacher.hasOptions.callCount).toStrictEqual(1);
         mustacher.hasOptions.restore();
       });
     });
@@ -77,7 +76,7 @@
         result = helper.render({
           name: '$image',
         });
-        expect(result.toString()).to.equal(
+        expect(result.toString()).toStrictEqual(
           '<img src="//placehold.it/300x300" alt="" title="" />'
         );
       });
@@ -86,7 +85,7 @@
         result = helper.render(300, {
           name: '$image',
         });
-        expect(result.toString()).to.equal(
+        expect(result.toString()).toStrictEqual(
           '<img src="//placehold.it/300x300" alt="" title="" />'
         );
       });
@@ -97,7 +96,7 @@
         result = helper.render(400, {
           name: '$image',
         });
-        expect(result.toString()).to.equal(
+        expect(result.toString()).toStrictEqual(
           '<img src="//placehold.it/400x400" alt="" title="" />'
         );
       });
@@ -108,7 +107,7 @@
         result = helper.render(500, 220, {
           name: '$image',
         });
-        expect(result.toString()).to.equal(
+        expect(result.toString()).toStrictEqual(
           '<img src="//placehold.it/500x220" alt="" title="" />'
         );
       });
@@ -130,7 +129,7 @@
             _parent: {},
           },
         });
-        expect(result.toString()).to.equal(
+        expect(result.toString()).toStrictEqual(
           '<img src="//localhost:9999/500x220" alt="" title="" />'
         );
       });
