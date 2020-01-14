@@ -1,0 +1,32 @@
+$body-width: 100% !default;
+$body-font-size: 16px !default;
+$default-padding: 12px !default;
+
+// $BorderStyle: solid;
+// $BorderSizes: () !default;
+// $BorderRadiusSizes: () !default;
+
+$FontSizes: (11, 12, 14, 16, 18, 20, 22) !default;
+$MarginPaddingSizes: (
+  3,
+  6,
+  9,
+  12,
+  18,
+  24,
+  32,
+  48,
+  56,
+  64,
+  72,
+  80,
+  92,
+  100
+) !default;
+
+/* ------------ colors ------------------------------ */
+$yellow: #FFCE44;
+$black: #1B1E1A;
+$green: #4AC6B6;
+$white: #FFFFFF;
+$blue: #4EFFD9;

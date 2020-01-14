@@ -1,0 +1,23 @@
+@import './styles/_google.scss';
+@import './styles/_variables.scss';
+@import '~@iziges/napper-styles/styles.scss';
+
+.is-open-sans {
+  font-family: 'Open Sans', sans-serif;
+}
+
+body {
+  @extend .is-open-sans;
+
+  color: $white;
+  font-size: 12px;
+  background-image:
+    linear-gradient(
+      to right bottom,
+      #4AC6B6,
+      #4AD4BF,
+      #4AE2C8,
+      #4BF1D1,
+      #4EFFD9
+    );
+}

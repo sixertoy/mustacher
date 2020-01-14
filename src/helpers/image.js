@@ -11,58 +11,57 @@
  */
 /*jslint indent: 4 */
 /*global module, require */
-(function () {
+(function() {
+  'use strict';
 
-    'use strict';
+  var ImageHelper,
+    Handlebars = require('handlebars'),
+    isnumber = require('lodash.isnumber'),
+    mustacher = require('./../mustacher'),
+    ImageHelper = function() {};
 
-    var ImageHelper,
-        Handlebars = require('handlebars'),
-        isnumber = require('lodash.isnumber'),
-        mustacher = require('./../mustacher'),
+  ImageHelper.prototype.register = function() {
+    Handlebars.registerHelper('$image', this.render.bind(this));
+  };
 
-    ImageHelper = function () {};
+  ImageHelper.prototype.render = function(width, height, options) {
+    var data,
+      valid,
+      result = '',
+      context = options || {},
+      args = mustacher.hasOptions(arguments);
 
-    ImageHelper.prototype.register = function () {
-        Handlebars.registerHelper('$image', this.render.bind(this));
-    };
+    if (!args || args.length < 1) {
+      throw new Error('missing arguments');
+    }
+    if (args.length < 2) {
+      options = width;
+      height = false;
+      width = false;
+    } else if (args.length === 2) {
+      options = height;
+      height = false;
+    }
+    width = isnumber(width) ? width : 300;
+    result = '//placehold.it/' + width;
 
-    ImageHelper.prototype.render = function (width, height, options) {
+    data = Handlebars.createFrame(options.data || {});
+    valid = data.hasOwnProperty('root');
+    valid = valid && data.root;
+    valid = valid && data.root.hasOwnProperty('image');
+    valid = valid && data.root.image;
+    if (valid) {
+      result = data.root.image + width;
+    }
+    if (isnumber(height)) {
+      result += 'x' + height;
+    } else {
+      result += 'x' + width;
+    }
+    return new Handlebars.SafeString(
+      '<img src="' + result + '" alt="" title="" />'
+    );
+  };
 
-        var data, valid,
-            result = '',
-            context = options || {},
-            args = mustacher.hasOptions(arguments);
-
-        if (!args || args.length < 1) {
-            throw new Error('missing arguments');
-        }
-        if (args.length < 2) {
-            options = width;
-            height = false;
-            width = false;
-        } else if (args.length === 2) {
-            options = height;
-            height = false;
-        }
-        width = isnumber(width) ? width : 300;
-        result = '//placehold.it/' + width;
-
-        data = Handlebars.createFrame(options.data || {});
-        valid = data.hasOwnProperty('root');
-        valid = valid && data.root;
-        valid = valid && data.root.hasOwnProperty('image');
-        valid = valid && data.root.image;
-        if (valid) {
-            result = (data.root.image + width);
-        }
-        if (isnumber(height)) {
-            result += 'x' + height;
-        } else {
-            result += 'x' + width;
-        }
-        return new Handlebars.SafeString('<img src="' + result + '" alt="" title="" />');
-    };
-
-    module.exports = ImageHelper;
-
-}());
+  module.exports = ImageHelper;
+})();
