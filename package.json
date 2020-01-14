@@ -75,7 +75,6 @@
   },
   "devDependencies": {
     "jest": "24.9.0",
-    "noop": "0.2.2",
     "sinon": "1.15.4"
   },
   "scripts": {

@@ -3,11 +3,15 @@
 /*global __dirname, jasmine, process, require, define, describe, xdescribe, it, xit, expect, beforeEach, afterEach, afterLast, console */
 (function() {
   'use strict';
+
+  var noop = function(v) {
+    return v;
+  };
+
   var result,
     cwd = process.cwd(),
     path = require('path'),
     sinon = require('sinon'),
-    noop = require('noop').noop,
     handlebars = require('handlebars'),
     mustacher = require(path.join(cwd, 'src/mustacher.js')),
     // helpers
@@ -84,7 +88,9 @@
         expect(mustacher.hasOptions(stubArguments())).toStrictEqual(false);
       });
       it('returns false is not a plainobject', function() {
-        expect(mustacher.hasOptions(stubArguments([1, 2, 3]))).toStrictEqual(false);
+        expect(mustacher.hasOptions(stubArguments([1, 2, 3]))).toStrictEqual(
+          false
+        );
       });
       it('returns options property name is not defined', function() {
         expect(
