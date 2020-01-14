@@ -84,6 +84,7 @@
     "gulp": "3.9.0",
     "gulp-bump": "0.3.1",
     "gulp-jshint": "1.11.2",
+    "jest": "^24.9.0",
     "jshint-stylish": "2.0.1",
     "mocha": "2.2.5",
     "noop": "0.2.2",
