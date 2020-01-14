@@ -80,7 +80,7 @@
   "scripts": {
     "cleanup": "rm -rf ./node_modules",
     "spec": "sh ./scripts/spec.sh",
-    "test": "./node_modules/.bin/jest --coverage",
+    "test": "$(yarn bin)/jest --coverage",
     "start": "echo \"Error: no start specified\" && exit 1"
   }
 }

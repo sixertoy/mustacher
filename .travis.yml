@@ -1,7 +1,7 @@
 language: node_js
 node_js:
-  - '0.12'
+  - '12.13.1'
 script:
-  - npm run test --verbose
+  - yarn test --verbose
 after_success:
   - cat ./coverage/lcov.info | coveralls && rm -rf ./coverage
