@@ -70,7 +70,7 @@
     "lodash.merge": "4.6.2",
     "lodash.random": "3.2.0",
     "lodash.toarray": "4.4.0",
-    "uglify-js": "2.7.3"
+    "uglify-js": "3.7.5"
   },
   "devDependencies": {
     "jest": "24.9.0",
