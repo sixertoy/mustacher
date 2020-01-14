@@ -62,15 +62,10 @@
         filepath +
         ' -->';
     } else {
-      output = fs
-        .readFileSync(filepath, {
-          encoding: 'utf8',
-        })
-        .trim();
+      var opts = { encoding: 'utf8' };
+      output = fs.readFileSync(filepath, opts).trim();
       output = handlebars.compile(output);
-      output = output(context, {
-        data: data,
-      });
+      output = output(context, { data: data });
     }
     return new handlebars.SafeString(output.trim());
   };

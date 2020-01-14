@@ -89,6 +89,7 @@
           '<!-- ' + p + ' -->\nUnable to load file\n<!-- endof ' + p + ' -->'
         );
       });
+
       it('render file with no context', function() {
         var p = path.normalize('include_low');
         defaults.data.root.partials.src = 'spec/fixtures';
@@ -97,6 +98,7 @@
         result = helper.render(p, defaults);
         expect(result.toString()).to.equal('include a template file');
       });
+
       it('render file with context', function() {
         var p = path.normalize('include_context');
         defaults.data.root.partials.src = 'spec/fixtures';
