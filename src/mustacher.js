@@ -81,10 +81,9 @@
   };
 
   /**
-
-     * Mustacher
-     *
-     */
+   * Mustacher
+   *
+   */
   mustacher.hasOptions = function(args) {
     if (arguments.length < 1 || isempty(args)) {
       return false;

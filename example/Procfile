@@ -1,0 +1,4 @@
+server: $(yarn bin)/nodemon ./server
+js: $(yarn bin)/chokidar ./src/**/*.js -c "yarn build:js"
+sass: $(yarn bin)/chokidar ./src/**/*.scss -c "yarn build:sass"
+html: $(yarn bin)/chokidar ./src/**/*.hbs ./src/**/*.html -c "yarn build:html"

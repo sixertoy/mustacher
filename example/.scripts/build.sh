@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# create public folder if not exist
 mkdir -p ./public
 
 # copy fonts to public folder
@@ -9,10 +10,10 @@ cp -R ./src/font ./public
 cp -R ./src/libs ./public
 
 # build JS files
-$(yarn bin)/babel ./src/js/index.js -o ./public/script.js
+yarn build:js
 
 # build SASS files
-$(yarn bin)/node-sass --importer ./node_modules/node-sass-package-importer/dist/cli.js -o ./public ./src/index.scss
+yarn build:sass
 
 # build mustacher files
-node ./.scripts/build-mustacher
+yarn build:html
