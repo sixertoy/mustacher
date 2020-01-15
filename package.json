@@ -73,6 +73,7 @@
     "uglify-js": "3.7.5"
   },
   "devDependencies": {
+    "babel-eslint": "^10.0.3",
     "eslint": "5.16.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-config-prettier": "^6.9.0",
