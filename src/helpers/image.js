@@ -1,67 +1,49 @@
-/**
- * Grunt Mustacher
- * https://github.com/malas34/grunt-mustacher
- *
- * Copyright (c) 2014 Matthieu Lassalvy
- * Licensed under the MIT license.
- *
- * HANDLEBARS
- * @see http://handlebarsjs.com/
- *
- */
-/*jslint indent: 4 */
-/*global module, require */
-(function() {
-  'use strict';
+const has = require('lodash.has');
+const Handlebars = require('handlebars');
+const isNumber = require('lodash.isnumber');
+const mustacher = require('./../mustacher');
+const { toArguments } = require('./../utils');
 
-  var ImageHelper,
-    Handlebars = require('handlebars'),
-    isnumber = require('lodash.isnumber'),
-    mustacher = require('./../mustacher'),
-    ImageHelper = function() {};
+const DEFAULT_IMG_SIZE = 300;
+const DEFAULT_IMG_BASEURL = '//placehold.it/';
 
-  ImageHelper.prototype.register = function() {
-    Handlebars.registerHelper('$image', this.render.bind(this));
-  };
+function ImageHelper() {}
 
-  ImageHelper.prototype.render = function(width, height, options) {
-    var data,
-      valid,
-      result = '',
-      context = options || {},
-      args = mustacher.hasOptions(arguments);
+ImageHelper.prototype.register = function register() {
+  Handlebars.registerHelper('$image', this.render.bind(this));
+};
 
-    if (!args || args.length < 1) {
-      throw new Error('missing arguments');
-    }
-    if (args.length < 2) {
-      options = width;
-      height = false;
-      width = false;
-    } else if (args.length === 2) {
-      options = height;
-      height = false;
-    }
-    width = isnumber(width) ? width : 300;
-    result = '//placehold.it/' + width;
+ImageHelper.prototype.render = function render(width, height, options) {
+  // const context = options || {};
+  const argmts = toArguments(width, height, options);
+  const args = mustacher.hasOptions(argmts);
+  if (!args || args.length < 1) {
+    throw new Error('missing arguments');
+  }
 
-    data = Handlebars.createFrame(options.data || {});
-    valid = data.hasOwnProperty('root');
-    valid = valid && data.root;
-    valid = valid && data.root.hasOwnProperty('image');
-    valid = valid && data.root.image;
-    if (valid) {
-      result = data.root.image + width;
-    }
-    if (isnumber(height)) {
-      result += 'x' + height;
-    } else {
-      result += 'x' + width;
-    }
-    return new Handlebars.SafeString(
-      '<img src="' + result + '" alt="" title="" />'
-    );
-  };
+  let imgWidth = width;
+  let imgHeight = height;
+  let nextOptions = options;
 
-  module.exports = ImageHelper;
-})();
+  if (args.length < 2) {
+    nextOptions = width;
+    imgHeight = false;
+    imgWidth = false;
+  } else if (args.length === 2) {
+    nextOptions = imgHeight;
+    imgHeight = false;
+  }
+
+  imgWidth = isNumber(imgWidth) ? imgWidth : DEFAULT_IMG_SIZE;
+
+  const data = Handlebars.createFrame(nextOptions.data || {});
+
+  const hasHeightDefined = isNumber(imgHeight);
+  const hasImageDefined = has(data, 'root.image') && data.root.image;
+  const size = `${imgWidth}x${hasHeightDefined ? imgHeight : imgWidth}`;
+  const baseURL = hasImageDefined ? data.root.image : DEFAULT_IMG_BASEURL;
+  const next = `<img src="${baseURL}${size}" alt="" title="" />`;
+  return new Handlebars.SafeString(next);
+};
+
+module.exports = ImageHelper;

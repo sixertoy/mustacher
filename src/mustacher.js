@@ -35,18 +35,17 @@ const HELPERS = [
 let OPTIONS = {};
 let IS_REGISTERED = false;
 
-function mustacher(str, context, options) {
+function mustacher(str, context = {}, options = {}) {
   if (!str || !isstring(str)) {
     throw new Error('missing arguments');
   }
   if (isempty(str)) return str;
   if (!IS_REGISTERED) mustacher.register();
-  const nextContext = context || {};
-  OPTIONS = merge(DEFAULTS, options || {}, nextContext);
+  OPTIONS = merge(DEFAULTS, options, context);
   try {
     const template = handlebars.compile(str);
     const opts = { data: { root: OPTIONS } };
-    const output = template(nextContext, opts);
+    const output = template(context, opts);
     return output;
   } catch (e) {
     // console.log(e.stack);

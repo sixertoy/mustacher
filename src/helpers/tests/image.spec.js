@@ -23,26 +23,22 @@ describe('image', () => {
   describe('render', () => {
     it('throws missing arguments', () => {
       helper.register();
-      expect(() => {
-        helper.render();
-      }).toThrow('missing arguments');
+      result = () => helper.render();
+      expect(result).toThrow('missing arguments');
     });
 
     it('not throws missing arguments', () => {
       helper.register();
-      expect(() => {
-        helper.render({
-          name: '$image',
-        });
-      }).not.toThrow('missing arguments');
+      const opts = { name: '$image' };
+      result = () => helper.render(opts);
+      expect(result).not.toThrow('missing arguments');
     });
 
     it('call mustacher hasOptions once', () => {
       sinon.spy(mustacher, 'hasOptions');
       helper.register();
-      helper.render({
-        name: '$image',
-      });
+      const opts = { name: '$image' };
+      helper.render(opts);
       expect(mustacher.hasOptions.callCount).toStrictEqual(1);
       mustacher.hasOptions.restore();
     });
@@ -58,6 +54,7 @@ describe('image', () => {
         '<img src="//placehold.it/300x300" alt="" title="" />'
       );
     });
+
     it('width 300 no height (300 default)', () => {
       helper.register();
       result = helper.render(300, {
