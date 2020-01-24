@@ -42,8 +42,8 @@ ImageHelper.prototype.render = function render(width, height, options) {
   const hasImageDefined = has(data, 'root.image') && data.root.image;
   const size = `${imgWidth}x${hasHeightDefined ? imgHeight : imgWidth}`;
   const baseURL = hasImageDefined ? data.root.image : DEFAULT_IMG_BASEURL;
-  const next = `<img src="${baseURL}${size}" alt="" title="" />`;
-  return new Handlebars.SafeString(next);
+  const str = `<img src="${baseURL}${size}" alt="" title="" />`;
+  return new Handlebars.SafeString(str);
 };
 
 module.exports = ImageHelper;
