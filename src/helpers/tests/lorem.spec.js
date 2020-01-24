@@ -25,5 +25,12 @@ describe('lorem helper', () => {
       result = helper.render(opts).toString();
       expect(typeof result).toBe('string');
     });
+
+    it('should return only one word', () => {
+      const opts = { name: '$lorem' };
+      result = helper.render(1, 'word', opts).toString();
+      result = result.split(' ');
+      expect(result.length).toEqual(1);
+    });
   });
 });
