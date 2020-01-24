@@ -14,7 +14,6 @@ ImageHelper.prototype.register = function register() {
 };
 
 ImageHelper.prototype.render = function render(width, height, options) {
-  // const context = options || {};
   const argmts = toArguments(width, height, options);
   const args = mustacher.hasOptions(argmts);
   if (!args || args.length < 1) {

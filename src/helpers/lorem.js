@@ -33,6 +33,7 @@ LoremHelper.prototype.render = function LoremHelperRender(
   const opts = { count, format, units };
   const cleaned = Object.keys(opts).reduce((acc, key) => {
     const value = opts[key];
+    if (isUndefined(value)) return acc;
     if (key === 'count' && isNumber(value)) {
       return { ...acc, count };
     }

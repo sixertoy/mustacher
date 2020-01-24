@@ -1,28 +1,23 @@
-/*jslint indent:4 */
-/*global module, process */
-(function() {
-  'use strict';
-  module.exports = {
-    hash: {},
-    data: {
-      root: {
-        cwd: process.cwd(),
-        partials: {
-          src: './tests/',
-          ext: '.hbs',
-        },
-        delimiter: {
-          ldim: '{{',
-          rdim: '}}',
-        },
+module.exports = {
+  data: {
+    root: {
+      cwd: process.cwd(),
+      delimiter: {
+        ldim: '{{',
+        rdim: '}}',
+      },
+      partials: {
+        ext: '.hbs',
+        src: './tests/',
       },
     },
-    name: 'helper_name',
-    fn: function() {
-      return true;
-    },
-    inverse: function() {
-      return false;
-    },
-  };
-})();
+  },
+  fn() {
+    return true;
+  },
+  hash: {},
+  inverse() {
+    return false;
+  },
+  name: 'helper_name',
+};
