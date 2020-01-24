@@ -7,6 +7,7 @@ const mustacher = require('../mustacher.js');
 const conditions = require('../helpers/conditions.js');
 const equal = require('../helpers/equal.js');
 const image = require('../helpers/image.js');
+const lorem = require('../helpers/lorem.js');
 const include = require('../helpers/include.js');
 const literal = require('../helpers/literal.js');
 const livereload = require('../helpers/livereload.js');
@@ -130,6 +131,7 @@ describe('mustacher', () => {
         sinon.stub(equal.prototype, 'register'),
         sinon.stub(image.prototype, 'register'),
         sinon.stub(include.prototype, 'register'),
+        sinon.stub(lorem.prototype, 'register'),
         sinon.stub(literal.prototype, 'register'),
         sinon.stub(livereload.prototype, 'register'),
         sinon.stub(random.prototype, 'register'),
