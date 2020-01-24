@@ -9,25 +9,24 @@
  * @see http://handlebarsjs.com/
  *
  */
-/*jslint indent: 4 */
-/*global module, require */
+/* jslint indent: 4 */
+/* global module, require */
 (function() {
-  'use strict';
-  var IncludeHelper,
-    LF = '\n',
-    path = require('path'),
-    fs = require('fs-extra'),
-    handlebars = require('handlebars'),
-    mustacher = require('./../mustacher'),
-    isstring = require('lodash.isstring');
+  let IncludeHelper;
+  const LF = '\n';
+  const path = require('path');
+  const fs = require('fs-extra');
+  const handlebars = require('handlebars');
+  const mustacher = require('./../mustacher');
+  const isstring = require('lodash.isstring');
   IncludeHelper = function() {};
   IncludeHelper.prototype.register = function() {
     handlebars.registerHelper('$include', this.render.bind(this));
   };
   IncludeHelper.prototype.render = function(filepath, context, options) {
-    var data,
-      output = 'Unable to load file',
-      args = mustacher.hasOptions(arguments);
+    let data;
+    let output = 'Unable to load file';
+    const args = mustacher.hasOptions(arguments);
     if (!args || args.length < 2 || !isstring(filepath)) {
       throw new Error('missing arguments');
     }
@@ -41,31 +40,22 @@
     // recuperation des data
     data = handlebars.createFrame(options.data || {});
     data = {
-      root: data.root,
       _parent: data._parent,
+      root: data.root,
     };
     // transformation du filepath en absolut
     filepath = path.join(data.root.cwd, data.root.partials.src, filepath);
     filepath += data.root.partials.ext;
     // test si le fichier existe
-    var exists = fs.pathExistsSync(filepath);
+    const exists = fs.pathExistsSync(filepath);
     if (!exists) {
       filepath = path.relative(data.root.cwd, filepath);
-      output =
-        '<!-- ' +
-        filepath +
-        ' -->' +
-        LF +
-        output +
-        LF +
-        '<!-- endof ' +
-        filepath +
-        ' -->';
+      output = `<!-- ${filepath} -->${LF}${output}${LF}<!-- endof ${filepath} -->`;
     } else {
-      var opts = { encoding: 'utf8' };
+      const opts = { encoding: 'utf8' };
       output = fs.readFileSync(filepath, opts).trim();
       output = handlebars.compile(output);
-      output = output(context, { data: data });
+      output = output(context, { data });
     }
     return new handlebars.SafeString(output.trim());
   };
