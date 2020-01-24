@@ -20,16 +20,17 @@ const DEFAULTS = {
 };
 
 const HELPERS = [
-  'livereload',
   'conditions',
-  'timestamp',
+  'equal',
+  'image',
+  'imports',
   'include',
   'literal',
-  'imports',
+  'livereload',
+  'lorem',
   'repeat',
   'random',
-  'image',
-  'equal',
+  'timestamp',
 ];
 
 let OPTIONS = {};
