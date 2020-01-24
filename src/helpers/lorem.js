@@ -1,6 +1,4 @@
-let LoremHelper;
-const lodash = require('lodash');
-const lorem = require('lorem-ipsum');
+// const lorem = require('lorem-ipsum');
 const Handlebars = require('handlebars');
 const Utils = require('./../mustacher');
 
@@ -15,17 +13,17 @@ const defaults = {
   units: 'sentences', // A PRNG function. Uses Math.random by default
 };
 
-LoremHelper = function() {};
+const LoremHelper = () => {};
 
-LoremHelper.prototype.register = function() {
+LoremHelper.prototype.register = () => {
   Handlebars.registerHelper('$lorem', this.render.bind(this));
 };
 
-LoremHelper.prototype.render = function(type, length, options) {
+LoremHelper.prototype.render = (type, length, options) => {
   const args = Utils.hasOptions(arguments);
   if (!args || args.length <= 1) {
     throw new Error('LoremHelper arguments is missing');
   }
 };
 
-module.exports = LoremHelper;
+export default LoremHelper;

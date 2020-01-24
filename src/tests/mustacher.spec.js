@@ -1,16 +1,15 @@
 let result;
+let expected;
 const sinon = require('sinon');
 const handlebars = require('handlebars');
 
 const mustacher = require('../mustacher.js');
-// helpers
 const conditions = require('../helpers/conditions.js');
 const equal = require('../helpers/equal.js');
 const image = require('../helpers/image.js');
 const include = require('../helpers/include.js');
 const literal = require('../helpers/literal.js');
 const livereload = require('../helpers/livereload.js');
-// lorem = require(path.join(cwd, 'src/helpers/lorem.js')),
 const random = require('../helpers/random.js');
 const repeat = require('../helpers/repeat.js');
 const timestamp = require('../helpers/timestamp.js');
@@ -35,20 +34,24 @@ function stubArguments(...rest) {
 describe('mustacher', () => {
   describe('options', () => {
     it('return empty defaults', () => {
-      expect(mustacher.options()).toStrictEqual({});
+      expected = {};
+      result = mustacher.options();
+      expect(result).toStrictEqual(expected);
     });
 
     it('return defaults', () => {
       mustacher('a string');
-      expect(mustacher.options()).toStrictEqual(defaults);
+      expected = defaults;
+      result = mustacher.options();
+      expect(result).toStrictEqual(expected);
     });
 
     it('return concatened context', () => {
       defaults.context = 'a global context variable';
-      mustacher('a string', {
-        context: defaults.context,
-      });
-      expect(mustacher.options()).toStrictEqual(defaults);
+      const opts = { context: defaults.context };
+      mustacher('a string', opts);
+      expected = mustacher.options();
+      expect(expected).toStrictEqual(defaults);
     });
 
     it('return concatened context + defaults override', () => {
@@ -74,33 +77,27 @@ describe('mustacher', () => {
     });
 
     it('returns false is not a plainobject', () => {
-      expect(mustacher.hasOptions(stubArguments([1, 2, 3]))).toStrictEqual(
-        false
-      );
+      const args = [1, 2, 3];
+      const stubbed = stubArguments(args);
+      result = mustacher.hasOptions(stubbed);
+      expected = false;
+      expect(result).toStrictEqual(expected);
     });
 
     it('returns options property name is not defined', () => {
-      expect(
-        mustacher.hasOptions(
-          stubArguments({
-            obj: 'no name prop',
-          })
-        )
-      ).toStrictEqual(false);
+      const opts = { obj: 'no name prop' };
+      const stubbed = stubArguments(opts);
+      result = mustacher.hasOptions(stubbed);
+      expected = false;
+      expect(result).toStrictEqual(expected);
     });
 
     it('expect to returns array of arguments', () => {
-      expect(
-        mustacher.hasOptions(
-          stubArguments({
-            name: 'name prop',
-          })
-        )
-      ).toStrictEqual([
-        {
-          name: 'name prop',
-        },
-      ]);
+      const opts = { name: 'name prop' };
+      const stubbed = stubArguments(opts);
+      result = mustacher.hasOptions(stubbed);
+      expected = [opts];
+      expect(result).toStrictEqual(expected);
     });
   });
 

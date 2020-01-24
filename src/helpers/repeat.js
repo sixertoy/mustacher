@@ -1,12 +1,10 @@
-/*jslint plusplus: true, indent: 4, nomen: true */
-/*global require, module */
+/* jslint plusplus: true, indent: 4, nomen: true */
+/* global require, module */
 (function() {
-  'use strict';
-
-  var RepeatHelper,
-    isnan = require('lodash.isnan'),
-    handlebars = require('handlebars'),
-    mustacher = require('./../mustacher');
+  let RepeatHelper;
+  const isnan = require('lodash.isnan');
+  const handlebars = require('handlebars');
+  const mustacher = require('./../mustacher');
 
   RepeatHelper = function() {};
 
@@ -19,11 +17,11 @@
    *
    */
   RepeatHelper.prototype.render = function(count, context, options) {
-    var i,
-      data,
-      local,
-      output = '',
-      args = mustacher.hasOptions(arguments);
+    let i;
+    let data;
+    let local;
+    let output = '';
+    const args = mustacher.hasOptions(arguments);
     if (!args || args.length <= 1) {
       throw new Error('missing arguments');
     }
@@ -40,8 +38,8 @@
     }
     data = handlebars.createFrame(options.data || {});
     data = {
-      root: data.root,
       _parent: data._parent,
+      root: data.root,
     };
     context = {
       of: count,
@@ -60,7 +58,7 @@
         (data.first ? ' first' : '');
       // output
       output += options.fn(context, {
-        data: data,
+        data,
       });
     }
     return output;
