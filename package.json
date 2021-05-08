@@ -57,7 +57,7 @@
   "dependencies": {
     "clean-css": "4.2.1",
     "fs-extra": "8.1.0",
-    "handlebars": "4.7.2",
+    "handlebars": "4.7.7",
     "lodash.assign": "4.2.0",
     "lodash.compact": "3.0.1",
     "lodash.has": "^4.5.2",
